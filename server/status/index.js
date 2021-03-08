@@ -1,0 +1,27 @@
+const me = require('./me');
+const perf = require('./perf');
+const music = require('./music');
+const volume = require('./volume');
+const layout = require('./layout');
+const battery = require('./battery');
+const network = require('./network');
+const devices = require('./devices');
+const displays = require('./displays');
+const bluetooth = require('./bluetooth');
+const workspaces = require('./workspace');
+const brightness = require('./brightness');
+
+exports.perf = perf;
+exports.music = music;
+exports.me = me.status;
+exports.volume = volume;
+exports.layout = layout;
+exports.battery = battery;
+exports.network = network;
+exports.devices = devices;
+exports.bluetooth = bluetooth;
+exports.workspaces = workspaces;
+exports.brightness = brightness;
+exports.avatar = me.streamAvatar;
+exports.displays = displays.status;
+exports.wallpaper = displays.streamWallpaper;

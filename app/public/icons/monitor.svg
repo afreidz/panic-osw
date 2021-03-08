@@ -1,0 +1,19 @@
+<svg viewBox="0 0 170 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient x1="50%" y1="0%" x2="50%" y2="113.727999%" id="base-gradient">
+      <stop stop-color="#020202" stop-opacity="0.35" offset="0%"></stop>
+      <stop stop-color="#000000" stop-opacity="0" offset="24.6169793%"></stop>
+      <stop stop-color="#000000" stop-opacity="0" offset="63.5298167%"></stop>
+      <stop stop-color="#020202" stop-opacity="0.35" offset="100%"></stop>
+    </linearGradient>
+    <polygon id="base-path" points="71.1538462 98 67 113 103 113 98.8461538 98"></polygon>
+  </defs>
+  <g class="monitor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g class="neck">
+      <use class="fill" xlink:href="#base-path"></use>
+      <use fill="url(#base-gradient)" xlink:href="#base-path"></use>
+    </g>
+    <rect class="base fill" x="43" y="113" width="85" height="10" rx="3"></rect>
+    <path d="M165.423077,0 C167.950842,0 170,2.02193984 170,4.51612903 L170,95.483871 C170,97.9780602 167.950842,100 165.423077,100 L4.57692308,100 C2.04915826,100 0,97.9780602 0,95.483871 L0,4.51612903 C0,2.02193984 2.04915826,0 4.57692308,0 L165.423077,0 Z M160.333333,5 L9.66666667,5 C7.14303218,5 5.08726754,7.00063383 5.00270601,9.50048575 L5,9.66071429 L5,90.3392857 C5,92.8597013 7.00318892,94.9128438 9.5062335,94.9972974 L9.66666667,95 L160.333333,95 C162.856968,95 164.912732,92.9993662 164.997294,90.4995142 L165,90.3392857 L165,9.66071429 C165,7.14029873 162.996811,5.08715623 160.493767,5.00270256 L160.333333,5 Z" class="screen fill"></path>
+  </g>
+</svg>

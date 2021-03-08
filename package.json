@@ -1,0 +1,40 @@
+{
+  "name": "panic-shell",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./app/electron.js",
+  "scripts": {
+    "app:watch": "rollup -c ./app/rollup.config.js -w",
+    "app:build": "rollup -c ./app/rollup.config.js"
+  },
+  "bin": {
+    "panic": "./cli/index.js"
+  },
+  "author": "afreidz",
+  "license": "ISC",
+  "dependencies": {
+    "battery-level": "^3.0.0",
+    "body-parser": "^1.19.0",
+    "electron-log": "^4.3.2",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "loudness": "^0.4.1",
+    "node-fetch": "^2.6.1",
+    "node-wifi": "^2.0.14",
+    "os-utils": "0.0.14",
+    "prompts": "^2.4.0",
+    "webview": "^1.0.0",
+    "ws": "^7.4.3",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "apexcharts": "^3.25.0",
+    "electron": "^12.0.0",
+    "rollup": "^2.40.0",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "svelte": "^3.35.0"
+  }
+}

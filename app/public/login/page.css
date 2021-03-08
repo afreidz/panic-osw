@@ -1,0 +1,40 @@
+@import '../variables.css';
+
+html {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100%;
+  box-sizing: border-box;
+  font-size: var(--size-rem);
+  background: var(--color-2);
+}
+
+html * {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: inherit;
+}
+
+button {
+  border: none;
+  outline: none;
+  appearance: none;
+}
+
+body {
+  flex: 1;
+  padding: 0;
+  display: flex;
+  user-select: none;
+  background-size: cover;
+  align-items: flex-start;
+  justify-content: center;
+  color: var(--color-text);
+  background-repeat: no-repeat;
+  font-family: var(--value-font-standard);
+}
+
+
+body * { color: inherit; font-family: inherit; }
