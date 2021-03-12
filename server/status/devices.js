@@ -5,7 +5,6 @@ const { sign } = tokens;
 
 module.exports = async function () {
 	const id = 'device';
-	
 	const t = new Date().getTime();
 	const sign_method = 'HMAC-SHA256';
 	const client_id = config.devices.key;

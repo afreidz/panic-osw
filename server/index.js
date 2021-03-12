@@ -39,13 +39,5 @@ app.use((err, req, res, next) => {
 });
 
 (async () => {
-	const pid = (await cmd(`lsof -i :${config.port} | grep LISTEN | awk '{print $2}'`)).trim();
-	
-	if(!!pid) {
-		logger.log(`Killing PID ${pid} listening on port ${config.port}`);
-		await cmd(`kill -9 ${pid}`);
-	}
-
-	await new Promise(r => setTimeout(r), 500);
 	httpServer.listen(config.port, () => logger.log(`Server started on port ${config.port}`));
 })();

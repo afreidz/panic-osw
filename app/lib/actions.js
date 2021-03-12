@@ -12,7 +12,7 @@ async function login(auth) {
 }
 
 async function toggle(device, spot) {
-  const resp = await fetch('/device/toggle', {
+  const resp = await fetch('/devices/toggle', {
     ...defaults,
     body: JSON.stringify({ device, spot }),
   });

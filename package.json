@@ -4,8 +4,9 @@
   "description": "",
   "main": "./app/electron.js",
   "scripts": {
-    "app:watch": "rollup -c ./app/rollup.config.js -w",
-    "app:build": "rollup -c ./app/rollup.config.js"
+    "app:watch": "npx rollup -c ./app/rollup.config.js -w",
+    "app:build": "npx rollup -c ./app/rollup.config.js",
+    "start": "npx electron ."
   },
   "bin": {
     "panic": "./cli/index.js"
@@ -20,6 +21,7 @@
     "express-async-handler": "^1.1.4",
     "loudness": "^0.4.1",
     "node-fetch": "^2.6.1",
+    "node-input-validator": "^4.4.0",
     "node-wifi": "^2.0.14",
     "os-utils": "0.0.14",
     "prompts": "^2.4.0",

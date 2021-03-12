@@ -49,7 +49,6 @@ socket.on('message', msg => {
 	if (data.action === 'close') return close(data.target);
 });
 
-app.on('ready',() => console.log(screen.getAllDisplays()));
 function open(target) {
 	const screens = screen.getAllDisplays();
 	const pos = screen.getCursorScreenPoint();

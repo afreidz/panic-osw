@@ -6,8 +6,8 @@ html {
   display: flex;
   min-height: 100%;
   box-sizing: border-box;
+  background: transparent;
   font-size: var(--size-rem);
-  background: var(--color-2);
 }
 
 html * {
@@ -28,13 +28,11 @@ body {
   padding: 0;
   display: flex;
   user-select: none;
-  background-size: cover;
+  background: transparent;
   align-items: flex-start;
   justify-content: center;
   color: var(--color-text);
-  background-repeat: no-repeat;
   font-family: var(--value-font-standard);
 }
-
 
 body * { color: inherit; font-family: inherit; }

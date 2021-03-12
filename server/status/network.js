@@ -1,8 +1,9 @@
 const os = require('os');
 const wifi = require('node-wifi');
+const cmd = require('../../lib/awaitcmd');
 const config = require('../../config.proxy'); 
 
-module.exports = async function status() {
+async function status() {
 	const id = 'network';
 	wifi.init({ iface: config.networking.wifi });
 
@@ -19,3 +20,17 @@ module.exports = async function status() {
 		eth: { ip: eth?.address ?? null, connected: !!eth, },
 	}
 }
+
+async function interfaces() {
+	return process.platform === 'linux'
+		? (await cmd(`nmcli device status | awk 'FNR>1 {print $1}'`))
+			.split('\n')
+			.filter(Boolean)
+		: process.platform === 'darwin'
+			? (await cmd(`networksetup -listallhardwareports | grep Device | awk '{print $2}'`))
+				.split('\n')
+				.filter(Boolean)
+			: [];
+}
+
+module.exports = { status, interfaces };

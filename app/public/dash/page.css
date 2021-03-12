@@ -38,16 +38,12 @@ body {
   background-size: cover;
   justify-content: center;
   color: var(--color-text);
-  backdrop-filter: blur(0px);
+  backdrop-filter: blur(10px);
   background-repeat: no-repeat;
   font-family: var(--value-font-standard);
   background-image: url('/display/wallpaper/0');
-  transition: backdrop-filter 200ms ease-in-out;
 }
 
-body.visible {
-  backdrop-filter: blur(10px);
-}
 body .container { 
   transform-origin: left center;
   transform: scale(var(--value-scale));
