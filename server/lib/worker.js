@@ -34,6 +34,7 @@ if (isMainThread) {
 		postUpdate('dash', 'battery');
 		postUpdate('dash', 'network');
 		postUpdate('dash', 'bluetooth');
+		postUpdate('login', 'me');
 	}, 10000);
 
 }

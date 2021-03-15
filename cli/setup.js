@@ -1,6 +1,7 @@
 const os = require('os');
 const fs = require('fs/promises');
 const prompts = require('prompts');
+const cmd = require('../lib/awaitcmd');
 const { dirs, files } = require('../consts');
 
 const now = new Date();
@@ -24,6 +25,16 @@ exports.handler = async function () {
 	}];
 
 	if (process.platform === 'linux') {
+		const users = (await cmd(`getent passwd {1000..6000} | awk -F':' '{print $1}'`))
+			.split('\n')
+			.filter(Boolean);
+
+		questions.push({
+			name: 'user',
+			type: 'select',
+			message: 'What is your username?',
+			choices: users.map(u => ({ title: u, value: u })),
+		});
 		questions.push({
 			name: 'i3',
 			type: 'confirm',

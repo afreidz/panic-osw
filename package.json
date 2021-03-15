@@ -6,6 +6,7 @@
   "scripts": {
     "app:watch": "npx rollup -c ./app/rollup.config.js -w",
     "app:build": "npx rollup -c ./app/rollup.config.js",
+    "server:start": "node ./server",
     "start": "npx electron ."
   },
   "bin": {

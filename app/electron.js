@@ -52,27 +52,32 @@ socket.on('message', msg => {
 function open(target) {
 	const screens = screen.getAllDisplays();
 	const pos = screen.getCursorScreenPoint();
+  const primary = screen.getPrimaryDisplay();
   const display = screen.getDisplayNearestPoint(pos);
+  let url = `http://127.0.0.1:${config.port}/${target}`;
 
 	if (!!windows[target]) {
-		if (target === 'bar') return windows.bar.forEach(b => b.show());
+		if (target === 'bar' || target === 'login') return windows[target].forEach(w => w.show());
 		windows[target].setBounds(display.bounds, true);
     windows[target].show();
 	} else {
-		if (target === 'bar') {
-			windows.bar = [];
+		if (target === 'bar' || target === 'login') {
+			windows[target] = [];
 			screens.forEach(s => {
-				const bar = new BrowserWindow({
+				if (target === 'bar') url = `${url}?output=${s.bounds.x === primary.bounds.x ? 1 : 2}`;
+				if (target === 'login') url = `${url}${s.bounds.x !== primary.bounds.x ? '/blank.html' : ''}`;
+				const win = new BrowserWindow({
 					type: 'dock',
 					...commonopts,
-					...s.bounds, height: 30,
-					title: 'panic-shell-bar',
+					...s.bounds, 
+					title: `panic-shell-${target}`,
 		      webPreferences: { contextIsolation: true },
+					height: target === 'bar' ? 30 : s.bounds.height,
 				});
-				bar.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
-				bar.loadURL(`http://127.0.0.1:${config.port}/bar?output=${s.bounds.x === 0 ? 2 : 1}`);
-				windows.bar.push(bar);
-				bar.show();
+				win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+				win.loadURL(url);
+				windows[target].push(win);
+				win.show();
 			});
 		} else {
 			windows[target] = new BrowserWindow({
@@ -111,8 +116,8 @@ function open(target) {
 				windows[target].setFullScreenable(false);
 			}
 
+			windows[target].loadURL(url);
 			windows[target].setBounds(display.bounds, true);
-			windows[target].loadURL(`http://127.0.0.1:${config.port}/${target}`);
   		windows[target].setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
 			windows[target].show();
 		}

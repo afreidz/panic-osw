@@ -15,7 +15,7 @@ function streamAvatar() {
 
 async function status() {
 	const id = 'me';
-	const whoami = os.userInfo().username;
+	const whoami = config.user || os.userInfo().username;
 	return { id, whoami, name: config.name };
 }
 

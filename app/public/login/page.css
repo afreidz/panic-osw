@@ -28,10 +28,10 @@ body {
   padding: 0;
   display: flex;
   user-select: none;
-  background: transparent;
   align-items: flex-start;
   justify-content: center;
   color: var(--color-text);
+  background: var(--color-2);
   font-family: var(--value-font-standard);
 }
 
