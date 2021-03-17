@@ -3,11 +3,12 @@ const defaults = {
   headers: { 'Content-Type': 'application/json' },
 };
 
-async function login(auth) {
-  const resp = await (await fetch('/system/login', {
+async function login(user, pass) {
+  const resp = await fetch('/system/login', {
     ...defaults,
-    body: JSON.stringify(auth),
-  })).json();
+    body: JSON.stringify({ user, pass }),
+  });
+  if (resp.status !== 200) throw new Error('login unsuccessful');
   return resp;
 }
 

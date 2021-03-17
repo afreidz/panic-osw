@@ -1,5 +1,23 @@
 const loudness = require('loudness');
 const cmd = require('../../lib/awaitcmd');
+const logger = require('../../lib/logger');
+const { spawn } = require('child_process');
+const { display } = require('../../consts');
+const config = require('../../config.proxy');
+
+async function login(username, password) {
+	if (!username || !password) {
+		logger.error('username or password not provided');
+		return false;
+	}
+	try {
+		await cmd(`echo "${password}" | pamtester login ${username} authenticate`);
+		return true;
+	} catch (err) {
+		logger.error(err);
+		return false;
+	}
+}
 
 async function volume(opts) {
 	await loudness.setVolume(opts.vol);
@@ -45,4 +63,4 @@ async function logout() {
 	return true;
 }
 
-module.exports =  { volume, sleep, shutdown, restart, logout, brightness };
+module.exports =  { volume, sleep, shutdown, restart, logout, brightness, login };

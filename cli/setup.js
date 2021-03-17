@@ -47,18 +47,6 @@ exports.handler = async function () {
 			type: p => p && 'toggle',
 			message: 'Do you want to enable the top bar?',
 		});
-		questions.push({
-			name: 'login',
-			active: 'yes',
-			inactive: 'no',
-			type: 'toggle',
-			message: 'Do you want to enable the login manager?',
-		});
-		questions.push({
-			name: 'wm',
-			type: (_,v) => (!v.i3 && v.login) && 'text',
-			message: 'What command should run after login?',
-		});
 	}
 
 	questions.push({

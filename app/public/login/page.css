@@ -31,8 +31,17 @@ body {
   align-items: flex-start;
   justify-content: center;
   color: var(--color-text);
-  background: var(--color-2);
+  background: var(--color-3);
   font-family: var(--value-font-standard);
 }
 
 body * { color: inherit; font-family: inherit; }
+
+body > h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 8rem;
+	align-self: center;
+	justify-self: center;
+	color: var(--color-panel);
+}

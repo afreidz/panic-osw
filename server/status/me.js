@@ -8,7 +8,7 @@ function streamAvatar() {
 	if(process.platform === 'darwin') {
 		return spawn('sh', ['-c', 'dscl . -read ~ JPEGPhoto | xxd -r -p']).stdout;
 	} else if (process.platform === 'linux') {
-		return fs.createReadStream(`/home/${os.userInfo().username}/.face`);
+		return fs.createReadStream(`/home/${config.user || os.userInfo().username}/.face`);
 	}
 	return Readable.from([null]);
 }

@@ -1,5 +1,6 @@
 const actions = require('./actions');
 const { Router } = require('express');
+const cmd = require('../lib/awaitcmd');
 const logger = require('../lib/logger');
 const ash = require('express-async-handler');
 const Validations = require('./lib/validations');
@@ -13,6 +14,15 @@ router.get('/display/wallpaper/:index', ash(async (req, res) => {
 
 router.get('/me/avatar', ash(async (req, res) => {
 	(await avatar()).pipe(res);
+}));
+
+router.post('/system/login', ash(async (req, res) => {
+	const { user, pass } = req.body;
+	const success = await actions.system.login(user, pass);
+	if (!success) return res.status(403).json({ success: false });
+
+	setTimeout(() => cmd(`panic msg login close`), 300);
+	res.status(200).json({ success: true });
 }));
 
 router.post('/:target/:action', ash(async (req, res) => {

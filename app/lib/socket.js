@@ -30,4 +30,6 @@ export const socket = window.location.pathname.includes('dash')
   ? new SocketClient(`ws://${location.host}/dash`)
   : window.location.pathname.includes('bar')
     ? new SocketClient(`ws://${location.host}/bar`)
-    : null;
+    : window.location.pathname.includes('login')
+    	? new SocketClient(`ws://${location.host}/login`)
+    	: null;

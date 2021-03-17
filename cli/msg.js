@@ -10,7 +10,7 @@ exports.builder = function (yargs) {
 }
 
 exports.handler = async function (args) {
-	const socket = new ws(`ws://127.0.0.1:${config.port}`);
+	const socket = new ws(`ws://127.0.0.1:${config.port}`, 'ipc');
 	socket.on('error', error);
 	
 	socket.on('open', () => {
