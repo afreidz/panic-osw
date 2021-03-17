@@ -1,5 +1,6 @@
 const cmd = require('../../lib/awaitcmd');
 const config = require('../../config.proxy');
+const id = 'workspaces';
 
 module.exports = async function () {
 	if (config.wm !== 'i3') return;
@@ -13,6 +14,6 @@ module.exports = async function () {
 		visible: ws.visible,
 		focused: ws.focused,
 	}));
-	return { workspaces };
+	return { id, workspaces };
 }
 

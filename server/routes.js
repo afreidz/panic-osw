@@ -21,7 +21,7 @@ router.post('/system/login', ash(async (req, res) => {
 	const success = await actions.system.login(user, pass);
 	if (!success) return res.status(403).json({ success: false });
 
-	setTimeout(() => cmd(`panic msg login close`), 300);
+	setTimeout(() => cmd(`panic close -w locker`), 300);
 	res.status(200).json({ success: true });
 }));
 

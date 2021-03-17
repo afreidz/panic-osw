@@ -1,7 +1,8 @@
 #! /usr/bin/env node
-const msg = require('./msg');
 const run = require('./run');
+const open = require('./open');
 const kill = require('./kill');
+const close = require('./close');
 const setup = require('./setup');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
@@ -14,8 +15,9 @@ yargs(hideBin(process.argv))
 	.onFinishCommand(finish)
 	.demandCommand(1, '')
 	.command(setup)
+	.command(close)
+	.command(open)
 	.command(kill)
-	.command(msg)
 	.command(run)
 	.help()
 	.argv;

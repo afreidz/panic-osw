@@ -9,7 +9,7 @@ if (!platforms.includes(process.platform)) {
 	process.exit(1);
 }
 
-if (!config.bar && !config.dash &!config.login) {
+if (!config.bar && !config.dash &!config.locker) {
 	console.log('nothing to do.');
 	process.exit(0);
 }
@@ -41,15 +41,22 @@ const commonopts = {
 const windows = new Map();
 windows.set('bar', null);
 windows.set('dash', null);
-windows.set('login', null);
+windows.set('locker', null);
 
 socket.on('message', msg => {
 	const data = JSON.parse(msg);
 	if (data.action === 'open' && config[data.target]) return open(data.target);
+	if (data.action === 'open') return open(data.target);
 	if (data.action === 'close') return close(data.target);
+	if (data.target === 'app'
+		&& data.action === 'kill') {
+		logger.log('Recieved KILL command for electron');
+		return process.exit(0);
+	}
 });
 
 function open(target) {
+	if(!config[target]) return;
 	const screens = screen.getAllDisplays();
 	const pos = screen.getCursorScreenPoint();
 	const primary = screen.getPrimaryDisplay();
@@ -89,9 +96,9 @@ function open(target) {
 		windows.set(target, dashwin);	
 	}
 
-	if ((target === 'bar' || target === 'login') && !windows.get(target)) {
+	if ((target === 'bar' || target === 'locker') && !windows.get(target)) {
 		const type = target === 'bar' ? 'dock' : 'dialog';
-		const fullscreen = target === 'login';
+		const fullscreen = target === 'locker';
 		const wins = new Set();
 
 		screens.forEach(s => {
@@ -102,13 +109,13 @@ function open(target) {
 			if (target === 'bar') {
 				url.pathname = 'bar';
 				url.searchParams.delete('user');
-				url.searchParams.set('output', isPrimary ? 1 : 2);
+				url.searchParams.set('output', isPrimary ? `DP-1` : `DP-2`);
 			}
 
-			if (target === 'login') {
+			if (target === 'locker') {
 				url.searchParams.delete('output');
 				url.searchParams.set('user', config.user);
-				url.pathname = isPrimary ? 'login' : 'login/blank.html';
+				url.pathname = isPrimary ? 'locker' : 'locker/blank.html';
 			}
 
 			const win = new BrowserWindow({
@@ -119,7 +126,7 @@ function open(target) {
 				title: `panic-shell-${target}`,
 			});
 
-			if (target === 'login') win.setAlwaysOnTop(true, 'screen-saver');
+			if (target === 'locker') win.setAlwaysOnTop(true, 'screen-saver');
 
 			win.on('close', e => e.preventDefault());
 			win.loadURL(url.href);

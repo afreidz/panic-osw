@@ -9,14 +9,12 @@ const consts = {
 	dirs: { home, config, root },
 	files: {
 		log: path.join(config, 'main.log'),
-		xpidfile: path.join(config, 'xpidfile'),
 		config: path.join(config, 'config.json'),
 	},
 	platforms: ['linux', 'darwin'],
 	wms: ['i3'],
 	ips: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
-	display: ':7',
-	vt: 'vt07',
+	views: ['dash','settings','locker','bar'],
 };
 
 module.exports = consts;

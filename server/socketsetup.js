@@ -1,13 +1,13 @@
 const url = require('url');
 const { OPEN } = require('ws');
 const status = require('./status');
-const { ips } = require('../consts');
 const worker = require('./lib/worker');
 const logger = require('../lib/logger');
+const { ips, views } = require('../consts');
 const clients = new Set();
 
 worker.on('dash', data => {
-	const dashclients = [...clients].filter(c => (c.scopes.includes('dash')));
+	const dashclients = [...clients].filter(c => (c.scopes.includes('dash') && c.ws.protocol !== 'ipc'));
 	if (dashclients.length === 0) return;
 	if (data.id === 'perf') return dashclients.forEach(c => c.send(data));
 
@@ -17,7 +17,7 @@ worker.on('dash', data => {
 });
 
 worker.on('bar', data => {
-	const barclients = [...clients].filter(c => (c.scopes.includes('dash')));
+	const barclients = [...clients].filter(c => (c.scopes.includes('bar') && c.ws.protocol !== 'ipc'));
 	if (barclients.length === 0) return;
 	barclients.forEach(c => c.send(data));
 });
@@ -34,7 +34,7 @@ module.exports = function (wss, http) {
 
 		const pathname = url.parse(req.url).pathname.replace('/','');
 
-		if (!['bar','dash','login','settings','all',''].includes(pathname)) {
+		if (![...views, 'app','all',''].includes(pathname)) {
 			logger.error(`context "${pathname}" is not supported. ws connection terminated`);
 			return ws.terminate();
 		}
@@ -49,7 +49,7 @@ module.exports = function (wss, http) {
 		};
 		
 		if (pathname === 'all') {
-			client.scopes = ['bar','dash','login','settings'];
+			client.scopes = [...views, 'app'];
 		} else if (pathname !== '') {
 			client.scopes = [pathname];
 		}

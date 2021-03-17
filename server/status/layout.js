@@ -1,4 +1,4 @@
-
+const id = 'layout';
 const layoutCommands = ['splith','splitv','mode "resize"','mode "default"','mode "launch"'];
 
 let layoutCache = 'splith';
@@ -25,6 +25,6 @@ module.exports = async function (data) {
 			layout = 'launch';
 		}
 		
-		return { layout };
+		return { id, layout };
 	}
 }

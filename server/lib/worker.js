@@ -1,4 +1,5 @@
 const status = require('../status');
+const logger = require('../../lib/logger');
 const { spawn } = require('child_process');
 const { EventEmitter } = require('events');
 const config = require('../../config.proxy');
@@ -8,7 +9,8 @@ if (isMainThread) {
 	const ee = new EventEmitter();
 	const worker = new Worker(__filename);
 	worker.on('message', msg => {
-		const { target } = msg;
+		const target = `${msg.target}`;
+		delete msg.target;
 		if (target === 'dash') ee.emit('dash', msg);
 		if (target === 'bar') ee.emit('bar', msg);
 	});
@@ -34,7 +36,6 @@ if (isMainThread) {
 		postUpdate('dash', 'battery');
 		postUpdate('dash', 'network');
 		postUpdate('dash', 'bluetooth');
-		postUpdate('login', 'me');
 	}, 10000);
 
 }

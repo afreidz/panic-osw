@@ -9,7 +9,7 @@ module.exports = {
 	input: {
 		bar: path.join(__dirname, 'views', 'bar.js'),
 		dash: path.join(__dirname, 'views', 'dash.js'),
-		login: path.join(__dirname, 'views', 'login.js'),
+		locker: path.join(__dirname, 'views', 'locker.js'),
 		settings: path.join(__dirname, 'views', 'settings.js'),
 	},
 	output: {

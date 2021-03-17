@@ -1,3 +1,4 @@
+const send = require('./socket');
 const fs = require('fs/promises');
 const { files } = require('../consts');
 const cmd = require('../lib/awaitcmd');
@@ -11,7 +12,7 @@ exports.builder = function (yargs) {
 		alias: 'c',
 		type: 'array',
 		required: true,
-		choices: ['server','xserver'], 
+		choices: ['server','app'], 
 	});
 	return yargs;
 }
@@ -26,15 +27,10 @@ exports.handler = async function (args) {
 			await cmd(`kill -9 ${pid}`);
 		}
 	}
-	if (args.command.includes('xserver')) {
-		const pid = await fs.readFile(files.xpidfile).catch(() => null);
-		
-		if (!!pid) {
-			console.log(`Killing XServer at PID ${pid}`);
-			logger.log(`Killing XServer at PID ${pid}`);
-			await cmd(`kill -9 ${pid}`);
-			await fs.unlink(files.xpidfile);
-		}
+	if (args.command.includes('app')) {
+		console.log(`Killing Electron Application`);
+		logger.log(`Killing Electron Application`);
+		await send('app', 'kill');
 	}
 	return 0;
 }
