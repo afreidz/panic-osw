@@ -13,6 +13,7 @@ if (isMainThread) {
 		delete msg.target;
 		if (target === 'dash') ee.emit('dash', msg);
 		if (target === 'bar') ee.emit('bar', msg);
+		if (target === 'launch') ee.emit('launch', msg);
 	});
 	module.exports = ee;
 } else {
@@ -30,6 +31,7 @@ if (isMainThread) {
 
 	intervals.medium = setInterval(() => {
 		postUpdate('dash', 'perf');
+		postUpdate('launch', 'apps');
 	}, 5000);
 
 	intervals.long = setInterval(() => {

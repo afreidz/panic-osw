@@ -1,4 +1,5 @@
 const me = require('./me');
+const apps = require('./apps');
 const perf = require('./perf');
 const music = require('./music');
 const volume = require('./volume');
@@ -12,6 +13,7 @@ const workspaces = require('./workspace');
 const brightness = require('./brightness');
 
 exports.perf = perf;
+exports.apps = apps;
 exports.music = music;
 exports.me = me.status;
 exports.volume = volume;

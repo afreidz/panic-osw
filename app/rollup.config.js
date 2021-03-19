@@ -10,6 +10,7 @@ module.exports = {
 		bar: path.join(__dirname, 'views', 'bar.js'),
 		dash: path.join(__dirname, 'views', 'dash.js'),
 		locker: path.join(__dirname, 'views', 'locker.js'),
+		launch: path.join(__dirname, 'views', 'launch.js'),
 		settings: path.join(__dirname, 'views', 'settings.js'),
 	},
 	output: {

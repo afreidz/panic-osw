@@ -14,7 +14,7 @@ const consts = {
 	platforms: ['linux', 'darwin'],
 	wms: ['i3'],
 	ips: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
-	views: ['dash','settings','locker','bar'],
+	views: ['dash','settings','locker','bar','launch'],
 };
 
 module.exports = consts;

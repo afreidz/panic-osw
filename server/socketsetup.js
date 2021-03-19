@@ -22,6 +22,12 @@ worker.on('bar', data => {
 	barclients.forEach(c => c.send(data));
 });
 
+worker.on('launch', data => {
+	const launchclients = [...clients].filter(c => (c.scopes.includes('launch') && c.ws.protocol !== 'ipc'));
+	if (launchclients.length === 0) return;
+	launchclients.forEach(c => c.send(data));
+});
+
 module.exports = function (wss, http) {
 	http.on('upgrade', (req, socket, head) => {
 		wss.handleUpgrade(req, socket, head, ws => {
@@ -29,7 +35,7 @@ module.exports = function (wss, http) {
 		});
 	});
 
-	wss.on('connection', (ws, req) => {
+	wss.on('connection', async (ws, req) => {
 		if (!ips.includes(req.socket.remoteAddress)) return ws.terminate();
 
 		const pathname = url.parse(req.url).pathname.replace('/','');
@@ -55,6 +61,25 @@ module.exports = function (wss, http) {
 		}
 
 		clients.add(client);
+
+		if (client.scopes.includes('dash')) {
+			client.send(await status.me());
+			client.send(await status.music());
+			client.send(await status.volume());
+			client.send(await status.devices());
+			client.send(await status.network());
+			client.send(await status.displays());
+			client.send(await status.bluetooth());
+			client.send(await status.brightness());
+		}
+		
+		if (client.scopes.includes('launch')) {
+			client.send(await status.apps());
+		}
+
+		if (client.scopes.includes('bar')) {
+			client.send(await status.workspaces());
+		}
 		
 		ws.on('close', () => {
 			logger.log(`socket disconnected | scopes: [${client.scopes.join(',')}]`);
@@ -72,17 +97,7 @@ async function handleMsg(msg, client) {
 
 	if (data.target === 'dispatch') {
 		if (data.action === 'idle') client.active = false;
-		if (data.action === 'active') {
-			client.active = true;
-			client.send(await status.me());
-			client.send(await status.music());
-			client.send(await status.volume());
-			client.send(await status.devices());
-			client.send(await status.network());
-			client.send(await status.displays());
-			client.send(await status.bluetooth());
-			client.send(await status.brightness());
-		}
+		if (data.action === 'active') client.active = true;
 	} else {
 		clients.forEach(c => {
 			if (c.scopes.includes(data.target) && c.active && c.ws.readyState === OPEN) {

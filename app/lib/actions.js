@@ -115,8 +115,27 @@ async function activateWS(ws) {
   return resp;
 }
 
+async function launch(app) {
+	const resp = await fetch('/system/launch', {
+    ...defaults,
+    body: JSON.stringify({ app }),
+  });
+  if (resp.status !== 200) throw new Error('launch unsuccessful');
+  return resp;
+}
+
 export const devices = { toggle };
 export const network = { speedtest };
 export const music = { play, pause, next, prev };
 export const workspace = { activate: activateWS };
-export const system = { sleep, shutdown, logout, restart, setVolume, setBrightness, settings, login };
+export const system = { 
+	sleep, 
+	login, 
+	logout,
+	launch,
+	restart, 
+	shutdown, 
+	settings, 
+	setVolume, 
+	setBrightness, 
+};

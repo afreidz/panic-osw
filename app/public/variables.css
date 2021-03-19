@@ -1,7 +1,7 @@
 :root {
   --value-scale: 1;
   --value-rem: 14px;
-  --value-radius: 8px;
+  --value-radius: 0px;
   --value-grid-rows: 8;
   --value-opacity: 0.7;
   --value-grid-cols: 19;

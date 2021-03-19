@@ -4,7 +4,7 @@ const cmd = require('../lib/awaitcmd');
 const logger = require('../lib/logger');
 const ash = require('express-async-handler');
 const Validations = require('./lib/validations');
-const { wallpaper, avatar } = require('./status');
+const { wallpaper, avatar, apps } = require('./status');
 
 const router = new Router();
 
@@ -23,6 +23,11 @@ router.post('/system/login', ash(async (req, res) => {
 
 	setTimeout(() => cmd(`panic close -w locker`), 300);
 	res.status(200).json({ success: true });
+}));
+
+router.get('/apps', ash(async (req, res) => {
+	const results = await apps();
+	res.status(200).json(results);
 }));
 
 router.post('/:target/:action', ash(async (req, res) => {

@@ -30,16 +30,10 @@ body {
   user-select: none;
   align-items: flex-start;
   justify-content: center;
+  background: transparent;
   color: var(--color-text);
-  background-size: 100% auto;
-  background-position: left center;
   font-family: var(--value-font-standard);
-  background-image: url('/display/wallpaper/1');
 }
-body.blank {
-  background-image: url('/display/wallpaper/2');
-}
-
 
 body * { color: inherit; font-family: inherit; }
 

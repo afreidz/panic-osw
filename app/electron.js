@@ -39,30 +39,52 @@ const commonopts = {
 	webPreferences: { contextIsolation: true, backgroundThrottling: false },
 };
 const windows = new Map();
-windows.set('bar', null);
-windows.set('dash', null);
-windows.set('locker', null);
+// windows.set('bar', null);
+// windows.set('dash', null);
+// windows.set('locker', null);
+// windows.set('launch', null);
 
 socket.on('message', msg => {
 	const data = JSON.parse(msg);
-	if (data.action === 'open' && config[data.target]) return open(data.target);
 	if (data.action === 'open') return open(data.target);
 	if (data.action === 'close') return close(data.target);
 	if (data.target === 'app'
 		&& data.action === 'kill') {
 		logger.log('Recieved KILL command for electron');
+		if(windows.has('dash')) windows.get('dash').destroy();
+		if(windows.has('launch')) windows.get('launch').destroy();
+		if(windows.has('bar')) windows.get('bar').forEach(w => w.destroy());
+		if(windows.has('locker')) windows.get('locker').forEach(w => w.destroy());
 		return process.exit(0);
 	}
 });
 
 function open(target) {
-	if(!config[target]) return;
+	// if(!config[target]) return;
 	const screens = screen.getAllDisplays();
 	const pos = screen.getCursorScreenPoint();
 	const primary = screen.getPrimaryDisplay();
 	const display = screen.getDisplayNearestPoint(pos);
 	const url = new URL(`http://127.0.0.1:${config.port}`);
 	url.pathname = target;
+
+	if (target === 'launch' && !windows.get(target)) {
+		const launchwin = new BrowserWindow({
+			...commonopts,
+			type: 'splash',
+			title: `panic-shell-${target}`,
+		});
+
+		launchwin.webContents.on('before-input-event', (_, i) => {
+			if (i.key !== 'Escape') return;
+			close(target);
+		});
+
+		launchwin.on('close', e => e.preventDefault());
+		launchwin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+		launchwin.loadURL(url.href);
+		windows.set(target, launchwin);	
+	}
 
 	if (target === 'dash' && !windows.get(target)) {
 		const dashwin = new BrowserWindow({

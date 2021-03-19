@@ -12,12 +12,20 @@ exports.builder = function (yargs) {
 		alias: 'c',
 		type: 'array',
 		required: true,
+		default: ['server','app'],
 		choices: ['server','app'], 
 	});
 	return yargs;
 }
 
 exports.handler = async function (args) {
+	
+	if (args.command.includes('app')) {
+		console.log(`Killing Electron Application`);
+		logger.log(`Killing Electron Application`);
+		await send('app', 'kill');
+	}
+
 	if (args.command.includes('server')) {
 		const pid = (await cmd(`lsof -i :${config.port} | grep LISTEN | awk '{print $2}'`)).trim();
 	
@@ -27,10 +35,6 @@ exports.handler = async function (args) {
 			await cmd(`kill -9 ${pid}`);
 		}
 	}
-	if (args.command.includes('app')) {
-		console.log(`Killing Electron Application`);
-		logger.log(`Killing Electron Application`);
-		await send('app', 'kill');
-	}
+	//await new Promise(r => setTimeout(r, 2000));
 	return 0;
 }

@@ -12,6 +12,7 @@ exports.builder = function (yargs) {
 		alias: 'c',
 		type: 'array',
 		required: true,
+		default: ['server', 'app'],
 		choices: ['server', 'build', 'app'], 
 	});
 	return yargs;
@@ -22,7 +23,7 @@ exports.handler = async function (args) {
 
 	if (args.command.includes('server')) {
 		console.log('Starting nodejs server');
-		await kill({ command: ['server']});
+		await kill({ command: ['server','app']});
 		const server = spawn('sh', ['-c', `node ./server`], {
 			cwd: dirs.root,
 			detached: true, 
@@ -46,7 +47,7 @@ exports.handler = async function (args) {
 
 	if (args.command.includes('app')) {
 		console.log('Starting application');
-		await kill({ command: ['app']});
+		if (!args.command.includes('server')) await kill({ command: ['app']});
 		const app = spawn('sh', ['-c', `npx electron .`], {
 			cwd: dirs.root,
 			detached: true,

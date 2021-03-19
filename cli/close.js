@@ -9,7 +9,7 @@ exports.builder = function (yargs) {
 		alias: 'w',
 		type: 'array',
 		required: true,
-		choices: ['locker', 'dash', 'bar'], 
+		choices: ['locker', 'dash', 'bar', 'launch'], 
 	});
 	return yargs;
 }
