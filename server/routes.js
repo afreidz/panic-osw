@@ -30,6 +30,12 @@ router.get('/apps', ash(async (req, res) => {
 	res.status(200).json(results);
 }));
 
+router.post('/system/launch', ash(async (req, res) => {
+	await actions.system.launch(req.body.app.Name, req.body.app.Exec);
+	cmd(`panic close -w launch`);
+	res.sendStatus(200);
+}));
+
 router.post('/:target/:action', ash(async (req, res) => {
 	const { target, action } = req.params;
 	if (!actions[target]) return res.sendStatus(404);

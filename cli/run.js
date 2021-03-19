@@ -23,7 +23,8 @@ exports.handler = async function (args) {
 
 	if (args.command.includes('server')) {
 		console.log('Starting nodejs server');
-		await kill({ command: ['server','app']});
+		if (args.command.includes('app')) await kill({ command: ['app'] });
+		await kill({ command: ['server']});
 		const server = spawn('sh', ['-c', `node ./server`], {
 			cwd: dirs.root,
 			detached: true, 
@@ -47,7 +48,6 @@ exports.handler = async function (args) {
 
 	if (args.command.includes('app')) {
 		console.log('Starting application');
-		if (!args.command.includes('server')) await kill({ command: ['app']});
 		const app = spawn('sh', ['-c', `npx electron .`], {
 			cwd: dirs.root,
 			detached: true,

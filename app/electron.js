@@ -39,10 +39,6 @@ const commonopts = {
 	webPreferences: { contextIsolation: true, backgroundThrottling: false },
 };
 const windows = new Map();
-// windows.set('bar', null);
-// windows.set('dash', null);
-// windows.set('locker', null);
-// windows.set('launch', null);
 
 socket.on('message', msg => {
 	const data = JSON.parse(msg);

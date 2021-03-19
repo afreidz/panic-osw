@@ -5,6 +5,11 @@ const { spawn } = require('child_process');
 const { display } = require('../../consts');
 const config = require('../../config.proxy');
 
+async function launch(n, c) {
+	await cmd(`panic launch -t title -s "${n.replace('"', '\\"')}" -c "${c.replace('"', '\\"')}"`);
+	return true;
+}
+
 async function login(username, password) {
 	if (!username || !password) {
 		logger.error('username or password not provided');
@@ -63,4 +68,4 @@ async function logout() {
 	return true;
 }
 
-module.exports =  { volume, sleep, shutdown, restart, logout, brightness, login };
+module.exports =  { volume, sleep, shutdown, restart, logout, brightness, login, launch };

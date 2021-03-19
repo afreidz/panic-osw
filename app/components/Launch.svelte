@@ -43,7 +43,7 @@
 
 	function send(e) {
 		if (e) e.preventDefault();
-		system.launch(current._exec);
+		system.launch(current);
 	}
 
 	document.addEventListener('visibilitychange', () => {
