@@ -44,6 +44,7 @@
 	function send(e) {
 		if (e) e.preventDefault();
 		system.launch(current);
+		q = '';
 	}
 
 	document.addEventListener('visibilitychange', () => {
