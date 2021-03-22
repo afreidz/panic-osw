@@ -66,6 +66,7 @@ module.exports = function (wss, http) {
 			client.send(await status.me());
 			client.send(await status.music());
 			client.send(await status.volume());
+			client.send(await status.battery());
 			client.send(await status.devices());
 			client.send(await status.network());
 			client.send(await status.displays());

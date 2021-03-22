@@ -43,6 +43,9 @@ cpuUsage.subscribe(v => localStorage.setItem('cpuUsage', JSON.stringify(v)));
 export const memUsage = writable(JSON.parse(localStorage.getItem('memUsage') || '[]'));
 memUsage.subscribe(v => localStorage.setItem('memUsage', JSON.stringify(v)));
 
+export const battery = writable(null);
+socket.on('battery', e => battery.set(e.detail.level));
+
 socket.on('perf', e => {
   const { cpu, mem } = e.detail;
   const cpuState = get(cpuUsage);

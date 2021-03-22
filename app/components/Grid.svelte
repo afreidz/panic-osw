@@ -10,6 +10,7 @@
   import Toggle from './Toggle.svelte';
   import Screen from './Screen.svelte';
   import Volume from './Volume.svelte';
+  import Battery from './Battery.svelte';
   import Calendar from './Calendar.svelte';
   import Ethernet from './Ethernet.svelte';
   import Bluetooth from './Bluetooth.svelte';
@@ -148,10 +149,17 @@
   <Widget 
     light={true}
     rowstart=1
-    rowend=9
+    rowend=7
     colstart=16
     colend=20>
       <Todo highlight=4 />
+  </Widget>
+  <Widget 
+    rowstart=7
+    rowend=9
+    colstart=16
+    colend=20>
+      <Battery/>
   </Widget>
   <Widget 
     rowstart=8
