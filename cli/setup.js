@@ -16,7 +16,7 @@ exports.handler = async function () {
 		name: 'port',
 		type: 'number',
 		initial: Number(`5${mm}${yy}`),
-		message: 'HTTP/Socket Port for the server?',
+		message: 'What HTTP/Socket Port should be used for the server?',
 	},{
 		name: 'name',
 		type: 'text',
@@ -32,7 +32,7 @@ exports.handler = async function () {
 		questions.push({
 			name: 'user',
 			type: 'select',
-			message: 'What is your username?',
+			message: 'Which linux user are you?',
 			choices: users.map(u => ({ title: u, value: u })),
 		});
 		questions.push({
@@ -40,22 +40,7 @@ exports.handler = async function () {
 			type: 'confirm',
 			message: 'Do you run i3wm?',
 		});
-		questions.push({
-			name: 'bar',
-			active: 'yes',
-			inactive: 'no',
-			type: p => p && 'toggle',
-			message: 'Do you want to enable the top bar?',
-		});
 	}
-
-	questions.push({
-		name: 'dash',
-		active: 'yes',
-		inactive: 'no',
-		type: 'toggle',
-		message: 'Do you want to enable the dashboard widget?',
-	});
 
 	const responses = await prompts(questions);
 	delete responses.i3;

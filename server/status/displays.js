@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { Readable } = require('stream');
 const cmd = require('../../lib/awaitcmd');
+const logger = require('../../lib/logger');
 const config = require('../../config.proxy');
 
 async function streamWallpaper (i) {
@@ -24,12 +25,12 @@ async function streamWallpaper (i) {
 			return fs.createReadStream(wallpaper);
 		}
 	} else if (process.platform === 'linux') {
-		const wallpapers = config.wallpaper.provider === 'feh'
+		const wallpapers = config.feh
 			? (await cmd(`cat ~/.fehbg | grep -Po "(?<=')[^']+(?=')"`))
 				.split('\n')
 				.map(l => l.trim())
 				.filter(Boolean)
-			: config.wallpapers;
+			: [config.wallpaper];
 
 		if (!wallpapers || wallpapers.length === 0) return noop;
 

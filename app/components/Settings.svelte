@@ -1,26 +1,24 @@
 <script>
-  import { onMount } from 'svelte';
   import Widget from './Widget.svelte';
   import { system } from '../lib/actions';
+  import { settings } from '../lib/settingsState';
 
   export let showSecret = false;
-  let settings;
   let form;
 
-  onMount(async () => {
-    settings = await (await fetch('/system/settings')).json();
-  });
-
-  $: if (settings && settings.wm !== 'i3') settings.bar = false;
-
   function addDevice() {
-    settings.devices.configured = [...(settings.devices.configured || []), {}];
+  	const updated = { ...$settings }
+    updated.devices.configured = updated.devices.configured || [];
+    updated.devices.configured.push({});
+    settings.update(() => updated);
   }
 
   async function removeDevice(device) {
     let confirm = await confirmRemove();
     if(!confirm) return;
-    settings.devices.configured = settings.devices.configured.filter(d => d !== device);
+    const updated = { ...$settings };
+    updated.devices.configured = $settings.devices.configured.filter(d => d !== device);
+    settings.update(() => updated);
     update();
   }
 
@@ -32,116 +30,107 @@
   }
 
   async function update() {
-    settings.devices.configured = (settings.devices.configured || []).filter(d => (Object.keys(d).length !== 0));
-    await system.settings(settings);
+  	const updated = { ...$settings };
+  	updated.devices.configured = updated.devices.configured || [];
+  	updated.devices.configured = updated.devices.configured.filter(d => (Object.keys(d).length !== 0));
+    settings.update(() => updated);
+    await system.settings($settings);
   }
 </script>
 
-<Widget light={true}>
-  {#if !!settings}
+<Widget dark={true}>
+  {#if !!$settings}
     <form bind:this={form} on:change={update} action="/" method="POST">
       <header>
         <h1>Settings</h1>
-        <h3 class:error={settings.values.depErrors}>
-          Dependency Check
-          {#if settings.values.depErrors}󱎘{:else}󰸞{/if}
-        </h3>
       </header>
       <section>
         <h2>General</h2>
         <label>
-          <span>Name</span>
-          <input name="name" type="text" maxlength=30 bind:value={settings.name} required placeholder="Enter Your Display Name" />
+          <span>Display Name</span>
+          <input name="name" type="text" maxlength=30 bind:value={$settings.name} required placeholder="Enter Your Display Name" />
         </label>
-        {#if settings.values.wms.length !== 0}
-        <label class="select">
-          <span>Window Manager</span>
-          <select name="windowManager" bind:value={settings.wm} required>
-            <option value="">Select A Window Manager</option>
-            {#each settings.values.wms as w}
-            <option value={w}>{w}</option>
-            {/each}
-          </select>
-        </label>
-        {/if}
-        {#if settings.values.wallpaper}
+        {#if $settings.values?.platform === 'linux'}
           <label class="select">
-            <span>Wallpaper Application</span>
-            <select name="wallpapeProvider" bind:value={settings.wallpaper.provider} required>
-              <option value="">Select A Wallpaper App</option>
-              {#each settings.values.wallpaper as w}
-                <option value={w}>{w}</option>
+            <span>Linux User</span>
+            <select name="user" bind:value={$settings.user} required>
+              <option value="">Select a user</option>
+              {#each $settings.values.users as u}
+                <option value={u} selected={u === $settings.user}>{u}</option>
               {/each}
             </select>
           </label>
         {/if}
-        {#if settings.values.platform === 'darwin'}
-        <label>
-          <span>Keyboard Shortcut</span>
-          <input name="shortcut" type="text" bind:value={settings.shortcut}/>
-        </label>
+        {#if $settings.values?.platform === 'darwin'}
+	        <label>
+	          <span>Keyboard Shortcut</span>
+	          <input name="shortcut" type="text" bind:value={$settings.shortcut}/>
+	        </label>
         {/if}
         <label class="port">
-          <span>Port</span>
-          <input name="port" type="number" min=43 max=65535 bind:value={settings.port} required placeholder="Enter A Port" />
+          <span>HTTP/Socket Port</span>
+          <input name="port" type="number" min=43 max=65535 bind:value={$settings.port} required placeholder="Enter A Port" />
         </label>
-        {#if settings.wm === 'i3'}
+
+        {#if $settings.values?.platform === 'linux'}
           <label>
-            <span>Enable Bar</span>
-            <input name="bar" type="checkbox" bind:checked={settings.bar} />
+            <span>i3wm</span>
+            <input name="i3" type="checkbox" bind:checked={$settings.i3} />
           </label>
+	        <label>
+	          <span>feh</span>
+	          <input name="feh" type="checkbox" bind:checked={$settings.feh} />
+	        </label>
         {/if}
-        <label class="checkbox">
-          <span>Enable Dashboard</span>
-          <input name="dash" type="checkbox" bind:checked={settings.dash} />
-        </label>
-        <label class="checkbox">
-          <span>Enable Login</span>
-          <input name="login" type="checkbox" bind:checked={settings.login} />
-        </label>
+        {#if !$settings.feh || $settings.values?.platform !== 'linux'}
+        	<label>
+          	<span>Wallpaper Path</span>
+          	<input name="wallpaper" type="text" bind:value={$settings.wallpaper} required />
+        	</label>
+        {/if}
       </section>
       <section>
         <h2>Networking</h2>
         <label class="select">
           <span>Wifi Interface</span>
-          <select name="wififace" bind:value={settings.networking.wifi} required>
+          <select name="wififace" bind:value={$settings.networking.wifi} required>
             <option value="">Select A Network Interface</option>
-            {#each settings.values.networking as i}
+            {#each $settings.values?.interfaces || [] as i}
               <option value={i}>{i}</option>
             {/each}
           </select>
         </label>
         <label class="select">
           <span>Ethernet Interface</span>
-          <select name="ethiface" bind:value={settings.networking.eth} required>
+          <select name="ethiface" bind:value={$settings.networking.eth} required>
             <option value="">Select A Network Interface</option>
-            {#each settings.values.networking as i}
+            {#each $settings.values?.interfaces || [] as i}
               <option value={i}>{i}</option>
             {/each}
           </select>
         </label>
       </section>
       <section>
-        <h2>Music (Spotify)</h2>
+        <h2>Music 󰓇</h2>
         <label>
           <span>Refresh Token</span>
-          <input name="musicRefresh" type="password" bind:value={settings.music.refresh} required/>
+          <input name="musicRefresh" type="password" bind:value={$settings.music.refresh} required/>
         </label>
         <label>
           <span>Authorization API URL</span>
-          <input name="musicAuth" type="text" bind:value={settings.music.auth}/>
+          <input name="musicAuth" type="text" bind:value={$settings.music.auth}/>
         </label>
         <label>
           <span>API URL</span>
-          <input name="musicAPI" type="text" bind:value={settings.music.api}/>
+          <input name="musicAPI" type="text" bind:value={$settings.music.api}/>
         </label>
         <label>
           <span>API Key</span>
-          <input name="musicKey" type="text" bind:value={settings.music.key} required />
+          <input name="musicKey" type="text" bind:value={$settings.music.key} required />
         </label>
         <label>
           <span>API Secret</span>
-          <input name="musicSecret" type="password" bind:value={settings.music.secret} required />
+          <input name="musicSecret" type="password" bind:value={$settings.music.secret} required />
         </label>
       </section>
       {#if showSecret}
@@ -149,20 +138,20 @@
           <h2>Devices (SECRECT)</h2>
           <label>
             <span>API URL</span>
-            <input name="devicesURL" type="text" bind:value={settings.devices.url}/>
+            <input name="devicesURL" type="text" bind:value={$settings.devices.url}/>
           </label>
           <label>
             <span>API Key</span>
-            <input name="devicesKey" type="text" bind:value={settings.devices.key}/>
+            <input name="devicesKey" type="text" bind:value={$settings.devices.key}/>
           </label>
           <label>
             <span>API Secret</span>
-            <input name="devicesSecret" type="password" bind:value={settings.devices.secret}/>
+            <input name="devicesSecret" type="password" bind:value={$settings.devices.secret}/>
           </label>
-          {#if settings.devices.configured }
+          {#if $settings.devices.configured }
             <h2>Configured Devices:</h2>
           {/if}
-          {#each (settings.devices.configured || []) as device, i}
+          {#each ($settings.devices?.configured || []) as device, i}
             <div class="device">
               <label>
                 <span>Device ID</span>
@@ -183,6 +172,10 @@
 </Widget>
 
 <style>
+	form {
+		color: var(--color-text);
+	}
+
   header {
     position: relative;
   }
@@ -192,36 +185,22 @@
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
-    color: var(--color-highlight-10);
     text-shadow: var(--value-font-shadow);
   }
 
   h2 {
-    margin: 1rem;
-    font-weight: 200;
+    padding: 1rem;
+    font-weight: 300;
     text-align: left;
     font-size: 1.5rem;
-  }
-
-  h3 {
-    top: 1rem;
-    right: 2rem;
-    font-size: 1rem;
-    font-weight: 500;
-    position: absolute;
-    color: var(--color-highlight-5);
-  }
-  h3.error {
-    color: var(--color-highlight-1);
   }
 
   section {
     margin: 1rem 2rem;
     text-align: center;
     padding-bottom: 1rem;
-    background: var(--color-7);
+    background: var(--color-panel);
     border-radius: var(--value-radius);
-    border: 1px solid rgba(0,0,0,0.2);
   }
 
   label {
@@ -246,10 +225,9 @@
     appearance: none;
     font-weight: 300;
     line-height: 2rem;
-    border-radius: 2rem;
     padding: 0.5rem 1rem;
-    background: var(--color-7);
-    border: 1px solid rgba(0,0,0,0.2);
+    background: var(--color-1);
+    border-radius: var(--value-radius);
   }
 
   label.select:after {
@@ -289,9 +267,8 @@
     outline: none;
     margin: 0.5rem;
     padding: 1rem 2rem;
-    background: var(--color-light);
+    background: var(--color-1);
     border-radius: var(--value-radius);
-    border: 1px solid rgba(0,0,0,0.2);
   }
 
   .device {

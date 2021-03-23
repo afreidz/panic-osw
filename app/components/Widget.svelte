@@ -6,6 +6,7 @@
   export let colend = 0;
   export let rowstart = 0;
   export let colstart = 0;
+  export let dark = false;
   export let highlight = 0;
   export let plain = false;
   export let light = false;
@@ -14,6 +15,7 @@
 {#if $visible}
 <div 
   in:animate
+  class:dark={dark}
   class:plain={plain} 
   class:light={light}
   class="widget bg_highlight_{highlight}"
@@ -43,6 +45,10 @@
   .widget.light {
     color: var(--color-text-alt);
     background: var(--color-panel-alt);
+  }
+
+  .widget.dark {
+    background: var(--color-1);
   }
 
   .widget :global(svg .fill *) {

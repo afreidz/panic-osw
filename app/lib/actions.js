@@ -93,7 +93,7 @@ async function speedtest() {
 }
 
 async function settings(settings) {
-  const resp = await (await fetch('/system/settings', {
+  const resp = await (await fetch('/settings/update', {
     ...defaults,
     body: JSON.stringify({ settings }),
   })).json();

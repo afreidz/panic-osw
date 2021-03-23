@@ -2,6 +2,7 @@ const { files } = require('./consts');
 
 module.exports = new Proxy({}, {
 	get(_, name) {
-		return require(files.config)[name]
+		delete require.cache[require.resolve(files.config)];
+		return require(files.config)[name];
 	}
 });

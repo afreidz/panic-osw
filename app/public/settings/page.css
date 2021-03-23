@@ -7,7 +7,7 @@ html {
   min-height: 100%;
   box-sizing: border-box;
   background-size: cover;
-  background: var(--color-panel);
+  background: var(--color-3);
   font-size: min(calc(100% - 4px), 30px);
 }
 

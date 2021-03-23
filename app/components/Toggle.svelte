@@ -56,8 +56,8 @@
 
   .container>.button, .container :global(i[slot="loading"]) {
     box-shadow: var(--value-box-shadow);
-    border-radius: var(--value-radius);
     margin: 1rem 0.5rem;
+    border-radius: 8px;
     cursor: pointer;
     padding: 0.5rem;
     height: 4.5rem;

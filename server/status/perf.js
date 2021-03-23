@@ -14,10 +14,9 @@ module.exports = async function perf() {
 		const used = internal-purgable;
 		mem = used/total;
 	} else if (process.platform === 'linux') {
-		const freemem = osutils.freemem();
-		const totalmem = osutils.totalmem();
-		const usedmem = totalmem-freemem;
-		mem = usedmem/totalmem;
+		const totalmem_kb = parseFloat(await cmd(`cat /proc/meminfo | grep MemTotal | awk '{print $2}'`));
+		const usedmem_kb = parseFloat(await cmd(`ps -eo size,command --sort -size | awk '{ hr=$1/1024 ; sum +=hr } END {print sum}'`))*1024;
+		mem = usedmem_kb/totalmem_kb;
 	}
 	
 	return { id, cpu, mem };

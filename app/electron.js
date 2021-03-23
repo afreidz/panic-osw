@@ -9,11 +9,6 @@ if (!platforms.includes(process.platform)) {
 	process.exit(1);
 }
 
-if (!config.bar && !config.dash &!config.locker) {
-	console.log('nothing to do.');
-	process.exit(0);
-}
-
 logger.catchErrors({ showDialog: false });
 
 if (process.platform === 'darwin') {

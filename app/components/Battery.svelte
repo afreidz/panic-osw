@@ -1,6 +1,5 @@
 <script>
 	import { battery } from '../lib/dashState';
-	$: console.log($battery);
 </script>
 
 <div class="battery">

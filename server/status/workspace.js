@@ -1,9 +1,10 @@
 const cmd = require('../../lib/awaitcmd');
+const logger = require('../../lib/logger');
 const config = require('../../config.proxy');
 const id = 'workspaces';
 
 module.exports = async function () {
-	if (config.wm !== 'i3') return;
+	if (!config.i3) return;
 	const status = await cmd(`i3-msg -t get_workspaces`);
 	const workspaces = JSON.parse(status).map(ws => ({
 		id: ws.id,
