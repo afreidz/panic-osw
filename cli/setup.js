@@ -10,17 +10,21 @@ const mm = ("0" + (now.getMonth() + 1)).slice(-2);
 
 exports.command = ['setup', 'config', 'cfg'];
 exports.describe = '** run me first **';
-exports.handler = async function () {
+exports.handler = async function (yargs) {
+	delete require.cache[require.resolve(files.config)];
+
+	const existing = require(files.config);
+	
 	const questions = [{
 		max: 65535,
 		name: 'port',
 		type: 'number',
-		initial: Number(`5${mm}${yy}`),
+		initial: existing.port || Number(`5${mm}${yy}`),
 		message: 'What HTTP/Socket Port should be used for the server?',
 	},{
 		name: 'name',
 		type: 'text',
-		initial: os.userInfo().username,
+		initial: existing.name || os.userInfo().username,
 		message: 'What should you be called?',
 	}];
 
@@ -35,22 +39,34 @@ exports.handler = async function () {
 			message: 'Which linux user are you?',
 			choices: users.map(u => ({ title: u, value: u })),
 		});
-		questions.push({
-			name: 'i3',
-			type: 'confirm',
-			message: 'Do you run i3wm?',
-		});
 	}
 
+	questions.push({
+		initial: false,
+		name: 'startup',
+		type: 'confirm',
+		message: 'Do you want to start now?'
+	});
+
 	const responses = await prompts(questions);
-	delete responses.i3;
+
+	if(responses.startup) {
+		await cmd(`panic run -c build -c server -c app`);
+		console.log(`
+	To change this (and a host of other settings) visit http://127.0.0.1:${responses.port}/settings
+		`);
+	} else {
+		console.log(`
+	Run \`panic --help\` to see what to do next
+		`);
+	}
+	delete responses.startup;
 	
 	await fs.access(files.config).catch(async () => {
 		await fs.mkdir(dirs.config).catch(_ => {});
 		await fs.writeFile(files.config,'{}');
 	});
 
-	let existing = require(files.config);
 	await fs.writeFile(files.config, JSON.stringify({ ...existing, ...responses }, null, 2));
 	return 0;
 }
