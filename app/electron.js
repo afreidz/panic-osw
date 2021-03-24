@@ -63,6 +63,7 @@ function open(target) {
 		const launchwin = new BrowserWindow({
 			...commonopts,
 			type: 'splash',
+			fullscreen: true,
 			title: `panic-osw-${target}`,
 		});
 
@@ -81,6 +82,7 @@ function open(target) {
 		const dashwin = new BrowserWindow({
 			...commonopts,
 			type: 'splash',
+			fullscreen: true,
 			title: `panic-osw-${target}`,
 		});
 

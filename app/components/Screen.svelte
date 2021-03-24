@@ -25,7 +25,7 @@
     {#each data as display}
       <div class="display">
         <div class="monitor">
-          <figure style="background-size: {display.singleWallpaper ? '200% auto' : '100% auto' }; background-image: url(/display/wallpaper/{index || 0}); background-position-x: {display.pos.x === 1920 ? '-100%' : 'left'};"></figure>
+          <figure style="background-size: {display.singleWallpaper ? '200% auto' : 'auto 100%' }; background-image: url(/display/wallpaper/{index || 0}); background-position-x: {(display.pos.x === 1920 && display.singleWallpaper) ? '-100%' : 'left'};"></figure>
           <IconMonitor/>
         </div>
         <legend>
