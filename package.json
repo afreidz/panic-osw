@@ -1,7 +1,7 @@
 {
-  "name": "panic-shell",
+  "name": "panic-osw",
   "version": "0.0.1",
-  "description": "",
+  "description": "Panic Operating System Widgets",
   "main": "./app/electron.js",
   "scripts": {
     "app:watch": "npx rollup -c ./app/rollup.config.js -w",
@@ -10,7 +10,7 @@
     "start": "npx electron ."
   },
   "bin": {
-    "panic": "./cli/index.js"
+    "panicosw": "./cli/index.js"
   },
   "author": "afreidz",
   "license": "ISC",

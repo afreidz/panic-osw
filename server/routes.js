@@ -1,10 +1,11 @@
 const actions = require('./actions');
+const { bin } = require('../consts');
 const { Router } = require('express');
 const cmd = require('../lib/awaitcmd');
 const logger = require('../lib/logger');
 const ash = require('express-async-handler');
 const Validations = require('./lib/validations');
-const { wallpaper, avatar, apps } = require('./status');
+const { wallpaper, avatar, apps, settings } = require('./status');
 
 const router = new Router();
 
@@ -16,12 +17,16 @@ router.get('/me/avatar', ash(async (req, res) => {
 	(await avatar()).pipe(res);
 }));
 
+router.get('/settings/current', ash(async (req, res) => {
+	res.json(await settings());
+}));
+
 router.post('/system/login', ash(async (req, res) => {
 	const { user, pass } = req.body;
 	const success = await actions.system.login(user, pass);
 	if (!success) return res.status(403).json({ success: false });
 
-	setTimeout(() => cmd(`panic close -w locker`), 300);
+	setTimeout(() => cmd(`${bin} close -w locker`), 300);
 	res.status(200).json({ success: true });
 }));
 
@@ -32,7 +37,7 @@ router.get('/apps', ash(async (req, res) => {
 
 router.post('/system/launch', ash(async (req, res) => {
 	await actions.system.launch(req.body.app.Name, req.body.app.Exec);
-	cmd(`panic close -w launch`);
+	cmd(`${bin} close -w launch`);
 	res.sendStatus(200);
 }));
 

@@ -2,11 +2,11 @@ const loudness = require('loudness');
 const cmd = require('../../lib/awaitcmd');
 const logger = require('../../lib/logger');
 const { spawn } = require('child_process');
-const { display } = require('../../consts');
 const config = require('../../config.proxy');
+const { display, bin } = require('../../consts');
 
 async function launch(n, c) {
-	await cmd(`panic launch -t title -s "${n.replace('"', '\\"')}" -c "${c.replace('"', '\\"')}"`);
+	await cmd(`${bin} launch -t title -s "${n.replace('"', '\\"')}" -c "${c.replace('"', '\\"')}"`);
 	return true;
 }
 

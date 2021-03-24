@@ -55,7 +55,7 @@
     appearance: none;
     background: none;
     line-height: 2rem;
-    color: var(--color-text-alt);
+    color: var(--color-text);
   }
 
   button > i {

@@ -92,6 +92,14 @@ async function speedtest() {
   return resp;
 }
 
+async function getSettings() {
+	const resp = await (await fetch('/settings/current', {
+		...defaults,
+		method: 'GET',
+	})).json();
+	return resp;
+} 
+
 async function settings(settings) {
   const resp = await (await fetch('/settings/update', {
     ...defaults,
@@ -136,6 +144,7 @@ export const system = {
 	restart, 
 	shutdown, 
 	settings, 
-	setVolume, 
+	setVolume,
+	getSettings,
 	setBrightness, 
 };

@@ -2,7 +2,7 @@ const os = require('os');
 const fs = require('fs/promises');
 const prompts = require('prompts');
 const cmd = require('../lib/awaitcmd');
-const { dirs, files } = require('../consts');
+const { dirs, files, bin } = require('../consts');
 
 const now = new Date();
 const yy = now.getFullYear() - 2000;
@@ -11,8 +11,13 @@ const mm = ("0" + (now.getMonth() + 1)).slice(-2);
 exports.command = ['setup', 'config', 'cfg'];
 exports.describe = '** run me first **';
 exports.handler = async function (yargs) {
-	delete require.cache[require.resolve(files.config)];
 
+	await fs.access(files.config).catch(async () => {
+		await fs.mkdir(dirs.config).catch(_ => {});
+		await fs.writeFile(files.config,'{}');
+	});
+
+	delete require.cache[require.resolve(files.config)];
 	const existing = require(files.config);
 	
 	const questions = [{
@@ -49,24 +54,20 @@ exports.handler = async function (yargs) {
 	});
 
 	const responses = await prompts(questions);
-
-	if(responses.startup) {
-		await cmd(`panic run -c build -c server -c app`);
+	const start = !!responses.startup;
+	delete responses.startup;
+	await fs.writeFile(files.config, JSON.stringify({ ...existing, ...responses }, null, 2));
+	
+	if(start) {
+		await cmd(`${bin} run -c build -c server -c app`);
 		console.log(`
 	To change this (and a host of other settings) visit http://127.0.0.1:${responses.port}/settings
 		`);
 	} else {
 		console.log(`
-	Run \`panic --help\` to see what to do next
+	Run \`${bin} --help\` to see what to do next
 		`);
 	}
-	delete responses.startup;
-	
-	await fs.access(files.config).catch(async () => {
-		await fs.mkdir(dirs.config).catch(_ => {});
-		await fs.writeFile(files.config,'{}');
-	});
 
-	await fs.writeFile(files.config, JSON.stringify({ ...existing, ...responses }, null, 2));
 	return 0;
 }

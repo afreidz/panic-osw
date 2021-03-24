@@ -63,7 +63,7 @@ function open(target) {
 		const launchwin = new BrowserWindow({
 			...commonopts,
 			type: 'splash',
-			title: `panic-shell-${target}`,
+			title: `panic-osw-${target}`,
 		});
 
 		launchwin.webContents.on('before-input-event', (_, i) => {
@@ -81,7 +81,7 @@ function open(target) {
 		const dashwin = new BrowserWindow({
 			...commonopts,
 			type: 'splash',
-			title: `panic-shell-${target}`,
+			title: `panic-osw-${target}`,
 		});
 
 		dashwin.setAlwaysOnTop(true, 'screen-saver');
@@ -136,7 +136,7 @@ function open(target) {
 				fullscreen,
 				...commonopts,
 				x, y, width, height,
-				title: `panic-shell-${target}`,
+				title: `panic-osw-${target}`,
 			});
 
 			if (target === 'locker') win.setAlwaysOnTop(true, 'screen-saver');

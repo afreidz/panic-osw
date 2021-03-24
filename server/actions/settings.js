@@ -10,7 +10,6 @@ async function update(data) {
 		await fs.writeFile(files.config,'{}');
 	});
 	delete require.cache[require.resolve(files.config)];
-	delete values.values;
 
 	let existing = require(files.config);
 	await fs.writeFile(files.config, JSON.stringify({ ...existing, ...values }, null, 2));

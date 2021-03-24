@@ -3,9 +3,10 @@ const path = require('path');
 
 const home = os.homedir();
 const root = path.resolve(__dirname);
-const config = path.join(home, '.config', 'panic');
+const config = path.join(home, '.config', 'panic-osw');
 
 const consts = {
+	bin: 'panicosw',
 	dirs: { home, config, root },
 	files: {
 		log: path.join(config, 'main.log'),

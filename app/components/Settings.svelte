@@ -1,24 +1,34 @@
 <script>
+	import { onMount } from 'svelte';
   import Widget from './Widget.svelte';
   import { system } from '../lib/actions';
-  import { settings } from '../lib/settingsState';
 
   export let showSecret = false;
+  
+  const defaults = {
+  	music: {},
+		networking: {},
+		devices: { configured: [], },
+  };
+
+  onMount(async () => {
+  	const data = await system.getSettings();
+  	settings = { ...defaults, ...data.settings };
+  	values = data.values;
+  });
+
+  let settings;
+  let values;
   let form;
 
-  function addDevice() {
-  	const updated = { ...$settings }
-    updated.devices.configured = updated.devices.configured || [];
-    updated.devices.configured.push({});
-    settings.update(() => updated);
+  async function addDevice() {
+    settings.devices.configured = [...settings.devices.configured, {}];
   }
 
   async function removeDevice(device) {
     let confirm = await confirmRemove();
     if(!confirm) return;
-    const updated = { ...$settings };
-    updated.devices.configured = $settings.devices.configured.filter(d => d !== device);
-    settings.update(() => updated);
+    settings.devices.configured = settings.devices.configured.filter(d => d !== device);
     update();
   }
 
@@ -30,16 +40,13 @@
   }
 
   async function update() {
-  	const updated = { ...$settings };
-  	updated.devices.configured = updated.devices.configured || [];
-  	updated.devices.configured = updated.devices.configured.filter(d => (Object.keys(d).length !== 0));
-    settings.update(() => updated);
-    await system.settings($settings);
+  	settings.devices.configured = settings.devices.configured.filter(d => (Object.keys(d).length !== 0));
+    await system.settings(settings);
   }
 </script>
 
 <Widget dark={true}>
-  {#if !!$settings}
+  {#if !!settings}
     <form bind:this={form} on:change={update} action="/" method="POST">
       <header>
         <h1>Settings</h1>
@@ -48,44 +55,44 @@
         <h2>General</h2>
         <label>
           <span>Display Name</span>
-          <input name="name" type="text" maxlength=30 bind:value={$settings.name} required placeholder="Enter Your Display Name" />
+          <input name="name" type="text" maxlength=30 bind:value={settings.name} required placeholder="Enter Your Display Name" />
         </label>
-        {#if $settings.values?.platform === 'linux'}
+        {#if values.platform === 'linux'}
           <label class="select">
             <span>Linux User</span>
-            <select name="user" bind:value={$settings.user} required>
+            <select name="user" bind:value={settings.user} required>
               <option value="">Select a user</option>
-              {#each $settings.values.users as u}
-                <option value={u} selected={u === $settings.user}>{u}</option>
+              {#each values.users as u}
+                <option value={u} selected={u === settings.user}>{u}</option>
               {/each}
             </select>
           </label>
         {/if}
-        {#if $settings.values?.platform === 'darwin'}
+        {#if values.platform === 'darwin'}
 	        <label>
 	          <span>Keyboard Shortcut</span>
-	          <input name="shortcut" type="text" bind:value={$settings.shortcut}/>
+	          <input name="shortcut" type="text" bind:value={settings.shortcut}/>
 	        </label>
         {/if}
         <label class="port">
           <span>HTTP/Socket Port</span>
-          <input name="port" type="number" min=43 max=65535 bind:value={$settings.port} required placeholder="Enter A Port" />
+          <input name="port" type="number" min=43 max=65535 bind:value={settings.port} required placeholder="Enter A Port" />
         </label>
 
-        {#if $settings.values?.platform === 'linux'}
+        {#if values.platform === 'linux'}
           <label>
             <span>i3wm</span>
-            <input name="i3" type="checkbox" bind:checked={$settings.i3} />
+            <input name="i3" type="checkbox" bind:checked={settings.i3} />
           </label>
 	        <label>
 	          <span>feh</span>
-	          <input name="feh" type="checkbox" bind:checked={$settings.feh} />
+	          <input name="feh" type="checkbox" bind:checked={settings.feh} />
 	        </label>
         {/if}
-        {#if !$settings.feh || $settings.values?.platform !== 'linux'}
+        {#if !settings.feh || values.platform !== 'linux'}
         	<label>
           	<span>Wallpaper Path</span>
-          	<input name="wallpaper" type="text" bind:value={$settings.wallpaper} required />
+          	<input name="wallpaper" type="text" bind:value={settings.wallpaper} required />
         	</label>
         {/if}
       </section>
@@ -93,18 +100,18 @@
         <h2>Networking</h2>
         <label class="select">
           <span>Wifi Interface</span>
-          <select name="wififace" bind:value={$settings.networking.wifi} required>
+          <select name="wififace" bind:value={settings.networking.wifi} required>
             <option value="">Select A Network Interface</option>
-            {#each $settings.values?.interfaces || [] as i}
+            {#each values.interfaces || [] as i}
               <option value={i}>{i}</option>
             {/each}
           </select>
         </label>
         <label class="select">
           <span>Ethernet Interface</span>
-          <select name="ethiface" bind:value={$settings.networking.eth} required>
+          <select name="ethiface" bind:value={settings.networking.eth} required>
             <option value="">Select A Network Interface</option>
-            {#each $settings.values?.interfaces || [] as i}
+            {#each values.interfaces || [] as i}
               <option value={i}>{i}</option>
             {/each}
           </select>
@@ -114,23 +121,23 @@
         <h2>Music 󰓇</h2>
         <label>
           <span>Refresh Token</span>
-          <input name="musicRefresh" type="password" bind:value={$settings.music.refresh} required/>
+          <input name="musicRefresh" type="password" bind:value={settings.music.refresh} required/>
         </label>
         <label>
           <span>Authorization API URL</span>
-          <input name="musicAuth" type="text" bind:value={$settings.music.auth}/>
+          <input name="musicAuth" type="text" bind:value={settings.music.auth}/>
         </label>
         <label>
           <span>API URL</span>
-          <input name="musicAPI" type="text" bind:value={$settings.music.api}/>
+          <input name="musicAPI" type="text" bind:value={settings.music.api}/>
         </label>
         <label>
           <span>API Key</span>
-          <input name="musicKey" type="text" bind:value={$settings.music.key} required />
+          <input name="musicKey" type="text" bind:value={settings.music.key} required />
         </label>
         <label>
           <span>API Secret</span>
-          <input name="musicSecret" type="password" bind:value={$settings.music.secret} required />
+          <input name="musicSecret" type="password" bind:value={settings.music.secret} required />
         </label>
       </section>
       {#if showSecret}
@@ -138,20 +145,20 @@
           <h2>Devices (SECRECT)</h2>
           <label>
             <span>API URL</span>
-            <input name="devicesURL" type="text" bind:value={$settings.devices.url}/>
+            <input name="devicesURL" type="text" bind:value={settings.devices.url}/>
           </label>
           <label>
             <span>API Key</span>
-            <input name="devicesKey" type="text" bind:value={$settings.devices.key}/>
+            <input name="devicesKey" type="text" bind:value={settings.devices.key}/>
           </label>
           <label>
             <span>API Secret</span>
-            <input name="devicesSecret" type="password" bind:value={$settings.devices.secret}/>
+            <input name="devicesSecret" type="password" bind:value={settings.devices.secret}/>
           </label>
-          {#if $settings.devices.configured }
+          {#if settings.devices.configured }
             <h2>Configured Devices:</h2>
           {/if}
-          {#each ($settings.devices?.configured || []) as device, i}
+          {#each (settings.devices?.configured || []) as device, i}
             <div class="device">
               <label>
                 <span>Device ID</span>

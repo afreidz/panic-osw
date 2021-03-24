@@ -5,9 +5,8 @@ const { platform } = process;
 async function settings () {
 	delete require.cache[require.resolve(files.config)];
 	
-	const id = 'settings';
 	const settings = require(files.config);
-	settings.values = settings.values || {};
+	const values = {};
 
 	const interfaces = platform === 'linux'
 		? (await cmd(`nmcli device status | awk 'FNR>1 {print $1}'`))
@@ -25,11 +24,11 @@ async function settings () {
 			.filter(Boolean)
 		: null;
 
-	settings.values.users = users;
-	settings.values.platform = platform;
-	settings.values.interfaces = interfaces;
+	values.users = users;
+	values.platform = platform;
+	values.interfaces = interfaces;
 
-	return { id, settings };
+	return { settings, values };
 }
 
 module.exports = settings;

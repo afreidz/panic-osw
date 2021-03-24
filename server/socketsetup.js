@@ -81,10 +81,6 @@ module.exports = function (wss, http) {
 		if (client.scopes.includes('bar')) {
 			client.send(await status.workspaces());
 		}
-
-		if (client.scopes.includes('settings')) {
-			client.send(await status.settings());
-		}
 		
 		ws.on('close', () => {
 			logger.log(`socket disconnected | scopes: [${client.scopes.join(',')}]`);
