@@ -1,5 +1,5 @@
 <script>
-  import { bluetooth } from '../lib/dashState';
+  import { bluetooth } from './lib/dashState';
   import IconBluetooth from '../public/icons/bluetooth.svg';
 
   export let size = "double";

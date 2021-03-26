@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
   import Widget from './Widget.svelte';
-  import { system } from '../lib/actions';
+  import { system } from './lib/actions';
 
   export let showSecret = false;
   

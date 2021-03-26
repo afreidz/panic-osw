@@ -1,5 +1,5 @@
 <script>
-	import { battery } from '../lib/dashState';
+	import { battery } from './lib/dashState';
 </script>
 
 <div class="battery">

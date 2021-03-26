@@ -1,5 +1,5 @@
 <script>
-  import { me } from '../lib/dashState';
+  import { me } from './lib/dashState';
   
   let loading = true;
   $: loading = !$me;

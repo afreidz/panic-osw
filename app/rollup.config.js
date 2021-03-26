@@ -5,7 +5,7 @@ const commonjs = require('@rollup/plugin-commonjs');
 const resolve = require('@rollup/plugin-node-resolve').default;
 const production = !process.env.ROLLUP_WATCH;
 
-module.exports = {
+module.exports = [{
 	input: {
 		bar: path.join(__dirname, 'views', 'bar.js'),
 		dash: path.join(__dirname, 'views', 'dash.js'),
@@ -26,4 +26,4 @@ module.exports = {
 		commonjs(),
 	],
 	watch: { clearScreen: false },
-};
+}];

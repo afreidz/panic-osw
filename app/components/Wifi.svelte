@@ -1,5 +1,5 @@
 <script>
-  import { wifi } from '../lib/dashState';
+  import { wifi } from './lib/dashState';
   import IconWifi from '../public/icons/wifi.svg';
 
   let loading = true;

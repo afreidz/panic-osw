@@ -1,9 +1,9 @@
 <script>
 	import Fuse from 'fuse.js';
-	import { visible } from '../lib/state';
-	import { system } from '../lib/actions';
+	import { visible } from './lib/state';
+	import { system } from './lib/actions';
 	import { fade } from 'svelte/transition';
-	import { apps } from '../lib/launchState';
+	import { apps } from './lib/launchState';
 	let current = null;
 	let items = [];
 	let matches;

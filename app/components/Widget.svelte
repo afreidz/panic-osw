@@ -1,6 +1,6 @@
 <script>
-  import animate from '../lib/animate';
-  import { visible } from '../lib/state';
+  import animate from './lib/animate';
+  import { visible } from './lib/state';
 
   export let rowend = 0;
   export let colend = 0;

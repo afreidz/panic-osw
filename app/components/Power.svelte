@@ -1,5 +1,5 @@
 <script>
-  import { system } from '../lib/actions';
+  import { system } from './lib/actions';
   const { sleep, shutdown, restart, logout } = system;
 </script>
 

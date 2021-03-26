@@ -1,5 +1,5 @@
 <script>
-  import { ethernet } from '../lib/dashState';
+  import { ethernet } from './lib/dashState';
   import IconEthernet from '../public/icons/ethernet.svg';
 
   let loading = true;

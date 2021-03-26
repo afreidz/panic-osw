@@ -48,7 +48,7 @@ exports.handler = async function (args) {
 
 	if (args.command.includes('app')) {
 		console.log('Starting application');
-		const app = spawn('sh', ['-c', `npx electron .`], {
+		const app = spawn('sh', ['-c', `node ./app`], {
 			cwd: dirs.root,
 			detached: true,
 			stdio: ['ignore',log,log],

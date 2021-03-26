@@ -1,5 +1,5 @@
 <script>
-  import { displays } from '../lib/dashState';
+  import { displays } from './lib/dashState';
   import IconMonitor from '../public/icons/monitor.svg';
   let orientation = 'horizontal';
   let loading = true;

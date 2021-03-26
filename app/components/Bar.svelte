@@ -1,7 +1,7 @@
 <script>
   import Clock from './Clock.svelte';
-  import { workspace } from '../lib/actions';
-  import { workspaces, mode } from '../lib/barState';
+  import { workspace } from './lib/actions';
+  import { workspaces, mode } from './lib/barState';
 
   const icons = ['󰎤','󰎧','󰎪','󰎭','󰎱','󰎳','󰎶','󰎹','󰎼'];
   let widgets = ['clock'];

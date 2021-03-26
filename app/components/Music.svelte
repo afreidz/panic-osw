@@ -1,6 +1,6 @@
 <script>
-  import { song } from '../lib/dashState';
-  import { music } from '../lib/actions';
+  import { song } from './lib/dashState';
+  import { music } from './lib/actions';
 </script>
 
 <div class="music">

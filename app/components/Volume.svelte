@@ -1,7 +1,7 @@
 <script>
   import { tick } from 'svelte';
-  import { volume } from '../lib/dashState';
-  import { system } from '../lib/actions';
+  import { volume } from './lib/dashState';
+  import { system } from './lib/actions';
   
   export let highlight = 0;
   let loading = true;

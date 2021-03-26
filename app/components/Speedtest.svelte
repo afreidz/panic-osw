@@ -1,6 +1,6 @@
 <script>
-  import { speedtest } from '../lib/dashState';
-  import { network } from '../lib/actions';
+  import { speedtest } from './lib/dashState';
+  import { network } from './lib/actions';
 
   let running = false;
 

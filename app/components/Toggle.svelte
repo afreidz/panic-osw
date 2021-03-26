@@ -1,6 +1,6 @@
 <script>
-  import { devices } from '../lib/dashState';
-  import { devices as deviceActions } from '../lib/actions';
+  import { devices } from './lib/dashState';
+  import { devices as deviceActions } from './lib/actions';
 
   let data = null;
   let loading = true;

@@ -1,6 +1,6 @@
 <script>
   import Chart from './Chart.svelte';
-  import { cpuUsage, memUsage } from '../lib/dashState';
+  import { cpuUsage, memUsage } from './lib/dashState';
 
   export let highlights = [1,2];
   export let height = 345;

@@ -1,8 +1,8 @@
 <script>
 	import { onMount, tick } from 'svelte';
-	import { visible } from '../lib/state';
-	import { system } from '../lib/actions';
-	import { whoami } from '../lib/loginState';
+	import { visible } from './lib/state';
+	import { system } from './lib/actions';
+	import { whoami } from './lib/loginState';
 	import { fly, fade } from 'svelte/transition';
 
 	let processing = false;

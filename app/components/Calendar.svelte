@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { visible } from '../lib/state';
+  import { visible } from './lib/state';
   
   let timer;
   let events;

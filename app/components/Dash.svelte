@@ -1,7 +1,7 @@
 <script>
   import Grid from './Grid.svelte';
-  import { socket } from '../lib/socket';
-  import { visible } from '../lib/state';
+  import { socket } from './lib/socket';
+  import { visible } from './lib/state';
 
   socket.send({ action: $visible ? 'active' : 'idle' });
   

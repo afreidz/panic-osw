@@ -1,7 +1,7 @@
 <script>
   import { tick } from 'svelte';
-  import { system } from '../lib/actions';
-  import { brightness, brightnessEnabled as enabled } from '../lib/dashState';
+  import { system } from './lib/actions';
+  import { brightness, brightnessEnabled as enabled } from './lib/dashState';
   
   export let highlight = 0;
   let loading = true;

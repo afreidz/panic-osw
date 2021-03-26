@@ -1,5 +1,5 @@
 <script>
-  import { todos } from '../lib/dashState';
+  import { todos } from './lib/dashState';
 
   export let highlight = 0;
   let editing = null;
