@@ -22,15 +22,9 @@ async function status() {
 }
 
 async function interfaces() {
-	return process.platform === 'linux'
-		? (await cmd(`nmcli device status | awk 'FNR>1 {print $1}'`))
-			.split('\n')
-			.filter(Boolean)
-		: process.platform === 'darwin'
-			? (await cmd(`networksetup -listallhardwareports | grep Device | awk '{print $2}'`))
-				.split('\n')
-				.filter(Boolean)
-			: [];
+	return (await cmd(`nmcli device status | awk 'FNR>1 {print $1}'`))
+		.split('\n')
+		.filter(Boolean);
 }
 
 module.exports = { status, interfaces };

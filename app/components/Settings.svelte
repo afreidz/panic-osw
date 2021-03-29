@@ -57,39 +57,28 @@
           <span>Display Name</span>
           <input name="name" type="text" maxlength=30 bind:value={settings.name} required placeholder="Enter Your Display Name" />
         </label>
-        {#if values.platform === 'linux'}
-          <label class="select">
-            <span>Linux User</span>
-            <select name="user" bind:value={settings.user} required>
-              <option value="">Select a user</option>
-              {#each values.users as u}
-                <option value={u} selected={u === settings.user}>{u}</option>
-              {/each}
-            </select>
-          </label>
-        {/if}
-        {#if values.platform === 'darwin'}
-	        <label>
-	          <span>Keyboard Shortcut</span>
-	          <input name="shortcut" type="text" bind:value={settings.shortcut}/>
-	        </label>
-        {/if}
+        <label class="select">
+          <span>Linux User</span>
+          <select name="user" bind:value={settings.user} required>
+            <option value="">Select a user</option>
+            {#each values.users as u}
+              <option value={u} selected={u === settings.user}>{u}</option>
+            {/each}
+          </select>
+        </label>
         <label class="port">
           <span>HTTP/Socket Port</span>
           <input name="port" type="number" min=43 max=65535 bind:value={settings.port} required placeholder="Enter A Port" />
         </label>
-
-        {#if values.platform === 'linux'}
-          <label>
-            <span>i3wm</span>
-            <input name="i3" type="checkbox" bind:checked={settings.i3} />
-          </label>
-	        <label>
-	          <span>feh</span>
-	          <input name="feh" type="checkbox" bind:checked={settings.feh} />
-	        </label>
-        {/if}
-        {#if !settings.feh || values.platform !== 'linux'}
+        <label>
+          <span>i3wm</span>
+          <input name="i3" type="checkbox" bind:checked={settings.i3} />
+        </label>
+        <label>
+          <span>feh</span>
+          <input name="feh" type="checkbox" bind:checked={settings.feh} />
+        </label>
+        {#if !settings.feh}
         	<label>
           	<span>Wallpaper Path</span>
           	<input name="wallpaper" type="text" bind:value={settings.wallpaper} required />

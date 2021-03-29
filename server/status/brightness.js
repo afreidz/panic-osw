@@ -3,20 +3,12 @@ const cmd = require('../../lib/awaitcmd');
 module.exports = async function() {
 	const id = 'brightness';
 	let enabled = true;
-	let brightness;
-	let command;
 
-	if (process.platform === 'darwin') {
-		command = `brightness -l | grep brightness | awk '{print $4}'`;
-	} else if (process.platform === 'linux') {
-		command = `xrandr --verbose | grep -i brightness | awk '{print $2}'`;
-	}
-
-	const values = (await cmd(command))
+	const values = (await cmd(`xrandr --verbose | grep -i brightness | awk '{print $2}'`))
 		.split('\n')
 		.filter(Boolean);
 
-	brightness = Math.min.apply(Math, values);
+	let brightness = Math.min.apply(Math, values);
 
 	if(!isFinite(brightness)) {
 		brightness = 1;

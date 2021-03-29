@@ -33,18 +33,16 @@ exports.handler = async function (yargs) {
 		message: 'What should you be called?',
 	}];
 
-	if (process.platform === 'linux') {
-		const users = (await cmd(`getent passwd {1000..6000} | awk -F':' '{print $1}'`))
-			.split('\n')
-			.filter(Boolean);
+	const users = (await cmd(`getent passwd {1000..6000} | awk -F':' '{print $1}'`))
+		.split('\n')
+		.filter(Boolean);
 
-		questions.push({
-			name: 'user',
-			type: 'select',
-			message: 'Which linux user are you?',
-			choices: users.map(u => ({ title: u, value: u })),
-		});
-	}
+	questions.push({
+		name: 'user',
+		type: 'select',
+		message: 'Which linux user are you?',
+		choices: users.map(u => ({ title: u, value: u })),
+	});
 
 	questions.push({
 		initial: false,

@@ -5,12 +5,7 @@ const { spawn } = require('child_process');
 const config = require('../../config.proxy');
 
 function streamAvatar() {
-	if(process.platform === 'darwin') {
-		return spawn('sh', ['-c', 'dscl . -read ~ JPEGPhoto | xxd -r -p']).stdout;
-	} else if (process.platform === 'linux') {
-		return fs.createReadStream(`/home/${config.user || os.userInfo().username}/.face`);
-	}
-	return Readable.from([null]);
+	return fs.createReadStream(`/home/${config.user || os.userInfo().username}/.face`);
 }
 
 async function status() {

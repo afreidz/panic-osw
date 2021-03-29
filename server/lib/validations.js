@@ -9,7 +9,7 @@ types['system.volume'] = {
 };
 
 types['system.brightness'] = {
-	brightness: ['required', 'numeric', `between:0.3,${process.platform === 'darwin' ? 1 : 1.1}`],
+	brightness: ['required', 'numeric', `between:0.3,1.1`],
 };
 
 types['devices.toggle'] = {

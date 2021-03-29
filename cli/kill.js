@@ -21,8 +21,8 @@ exports.builder = function (yargs) {
 exports.handler = async function (args) {
 	
 	if (args.command.includes('app')) {
-		console.log(`Killing Electron Application`);
-		logger.log(`Killing Electron Application`);
+		console.log(`Killing GUI Application`);
+		logger.log(`Killing GUI Application`);
 		await send('app', 'kill');
 	}
 
