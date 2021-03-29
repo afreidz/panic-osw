@@ -52,9 +52,9 @@
     margin: 0 1px;
     outline: none;
     font-size: 2rem;
-    appearance: none;
     background: none;
     line-height: 2rem;
+    -webkit-appearance: none;
     color: var(--color-text);
   }
 

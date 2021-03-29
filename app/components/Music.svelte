@@ -40,10 +40,10 @@
     display: grid;
     grid-area: pic;
     font-size: 5rem;
+    border-radius: 8px;
     align-items: center;
     justify-content: center;
     color: var(--color-dark);
-    border-radius: var(--value-radius);
     background: rgba(var(--rgb-8), 0.3);
   }
 
@@ -62,7 +62,7 @@
   img {
     height: 7rem;
     grid-area: pic;
-    border-radius: var(--value-radius);
+    border-radius: 8px;
   }
 
   section {
@@ -126,9 +126,9 @@
   progress {
     height: 2px;
     align-self: end;
-    appearance: none;
     grid-area: timer;
     margin-left: -1rem;
+    -webkit-appearance: none;
     width: calc(var(--value-grid-unit)*4 + (var(--value-grid-gap)*3));
   }
 

@@ -229,10 +229,10 @@
   label > input, label > select {
     outline: none;
     font-size: 1rem;
-    appearance: none;
     font-weight: 300;
     line-height: 2rem;
     padding: 0.5rem 1rem;
+    -webkit-appearance: none;
     background: var(--color-1);
     border-radius: var(--value-radius);
   }
@@ -251,8 +251,8 @@
   label > input[type="checkbox"] {
     width: 2rem;
     height: 2rem;
-    appearance: none;
     border-radius: 0;
+    -webkit-appearance: none;
   }
 
   label > input[type="checkbox"]:checked {

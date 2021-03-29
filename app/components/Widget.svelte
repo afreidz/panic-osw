@@ -1,7 +1,4 @@
 <script>
-  import animate from './lib/animate';
-  import { visible } from './lib/state';
-
   export let rowend = 0;
   export let colend = 0;
   export let rowstart = 0;
@@ -12,9 +9,7 @@
   export let light = false;
 </script>
 
-{#if $visible}
 <div 
-  in:animate
   class:dark={dark}
   class:plain={plain} 
   class:light={light}
@@ -22,7 +17,6 @@
   style="grid-area:{rowstart} / {colstart} / {rowend} / {colend};">
   <slot></slot>
 </div>
-{/if}
 
 <style>
   .widget {

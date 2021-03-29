@@ -1,5 +1,5 @@
 export default function fadeScale(
-  node, { delay = 0, duration = 200, easing = x => x, baseScale = 0 }
+  node, { delay = 100, duration = 200, easing = x => x, baseScale = 0 }
 ) {
   const o = +getComputedStyle(node).opacity;
   const m = getComputedStyle(node).transform.match(/scale\(([0-9.]+)\)/);

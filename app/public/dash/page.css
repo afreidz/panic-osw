@@ -35,13 +35,10 @@ body {
   display: flex;
   user-select: none;
   align-items: center;
-  background-size: cover;
+  background: transparent;
   justify-content: center;
   color: var(--color-text);
-  backdrop-filter: blur(10px);
-  background-repeat: no-repeat;
   font-family: var(--value-font-standard);
-  background-image: url('/display/wallpaper/0');
 }
 
 body .container { 

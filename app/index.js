@@ -2,6 +2,8 @@ const gi = require('node-gtk');
 const Gtk = gi.require('Gtk', '3.0');
 const Gdk = gi.require('Gdk', '3.0');
 const WebKit = gi.require('WebKit2');
+const cmd = require('../lib/awaitcmd');
+const logger = require('../lib/logger');
 const config = require('../config.proxy');
 const SocketClient = require('./lib/socket');
 const priority = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION;
@@ -19,7 +21,7 @@ const windowCache = new Map();
 
 	const screen = new Gdk.Screen.getDefault();
 	const styles = new Gtk.CssProvider();
-	
+
 	styles.loadFromData(`
 		#panic-osw-launch { background-color: rgba(0,0,0,0); }
 	`);
@@ -43,7 +45,6 @@ function open(target) {
 				const name = Screen.getMonitorPlugName(i);
 				const geo = Screen.getMonitorGeometry(i);
 
-
 				const win = new Gtk.Window({ name: `panic-osw-${target}`, title: `panic-osw-${target}` });
 				const visual = win.getScreen().getRgbaVisual();
 				const web = new WebKit.WebView();
@@ -54,7 +55,9 @@ function open(target) {
 				win.setVisual(visual);
 				win.add(web);
 				win.showAll();
+
 				win.window.moveResize(geo.x, geo.y, geo.width, 30);
+				win.setResizable(false);
 				wins.push(win);
 			});
 			windowCache.set(target, wins);
@@ -63,7 +66,7 @@ function open(target) {
 			monitors.forEach((_,i) => {
 				const name = Screen.getMonitorPlugName(i);
 				const geo = Screen.getMonitorGeometry(i);
-				const type = i === 0 ? `${target}` : `${target}-blank`;
+				const type = i === 0 ? `panic-osw-${target}` : `panic-osw-${target}-blank`;
 				const url = i === 0 
 					? `http://127.0.0.1:${config.port}/locker?user=${config.user}`
 					: `http://127.0.0.1:${config.port}/locker/blank.html`;
@@ -72,13 +75,16 @@ function open(target) {
 				const visual = win.getScreen().getRgbaVisual();
 				const web = new WebKit.WebView();
 
-				web.loadUri(url);
-				win.setTypeHint(Gdk.WindowTypeHint.UTILITY);
+				win.setTypeHint(Gdk.WindowTypeHint.SPLASHSCREEN);
 				web.setBackgroundColor(rgba);
 				win.setVisual(visual);
+				web.loadUri(url);
 				win.add(web);
 				win.showAll();
+
 				win.window.moveResize(geo.x, geo.y, geo.width, geo.height);
+				win.fullscreen();
+				win.stick();
 				wins.push(win);
 			});
 			windowCache.set(target, wins);
@@ -86,11 +92,23 @@ function open(target) {
 			const win = new Gtk.Window({ name: `panic-osw-${target}`, title: `panic-osw-${target}` });
 			const visual = win.getScreen().getRgbaVisual();
 			const web = new WebKit.WebView();
+
 			web.loadUri(`http://127.0.0.1:${config.port}/${target}`);
+			win.setTypeHint(Gdk.WindowTypeHint.SPLASHSCREEN);
 			web.setBackgroundColor(rgba);
 			win.setVisual(visual);
 			win.add(web);
 			win.showAll();
+
+			if (target === 'dash') {
+				win.fullscreen();
+				win.stick();
+			}
+
+			if (target === 'launch') {
+				win.stick();
+			}
+
 			moveToScreen(win);
 			windowCache.set(target, win);
 		}
@@ -98,6 +116,7 @@ function open(target) {
 		if (Array.isArray(cache)) {
 			cache.forEach(w => w.showAll());
 		} else {
+			moveToScreen(cache);
 			cache.showAll();
 		}
 	}
@@ -113,6 +132,10 @@ function close(target) {
 	} else if (win) {
 		win.hide();
 	}
+
+	if (target === 'launch' && config.i3) {
+		cmd(`i3-msg mode default`);
+	}
 }
 
 function moveToScreen(w) {
@@ -126,5 +149,4 @@ function moveToScreen(w) {
 	const mon = screen.getMonitorAtPoint(x,y);
 	const geo = screen.getMonitorGeometry(mon);
 	w.window.moveResize(geo.x, geo.y, geo.width, geo.height);
-	return false;
 }

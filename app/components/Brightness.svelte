@@ -85,9 +85,9 @@
 
   .slider input {
     outline: none;
-    appearance: none;
     grid-area: 1/1/1/1;
     background: transparent;
+    -webkit-appearance: none;
   }
 
   .slider.disabled {
@@ -97,8 +97,8 @@
   .slider input::-webkit-slider-thumb {
     width: 1.5rem;
     height: 1.5rem;
-    appearance:none;
     border-radius: 2rem;
+    -webkit-appearance:none;
     box-shadow: -1px 0 5px rgba(0,0,0,0.4);
     background: var(--slider-highlight-color);
   }

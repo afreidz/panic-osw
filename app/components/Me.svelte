@@ -28,8 +28,8 @@
     height: 5rem;
     grid-row: span 2;
     align-self: center;
+    border-radius: 8px;
     justify-self: center;
-    border-radius: var(--value-radius);
     box-shadow: var(--value-box-shadow);
   }
 
