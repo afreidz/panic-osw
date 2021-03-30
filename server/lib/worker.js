@@ -26,8 +26,8 @@ if (isMainThread) {
 
 	intervals.short = setInterval(() => {
 		postUpdate('dash', 'music');
-		postUpdate('dash', 'devices');
-	}, 2000);
+		if (config.secretstuff) postUpdate('dash', 'devices');
+	}, 1000);
 
 	intervals.medium = setInterval(() => {
 		postUpdate('dash', 'perf');

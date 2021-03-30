@@ -75,7 +75,7 @@ function open(target) {
 				const visual = win.getScreen().getRgbaVisual();
 				const web = new WebKit.WebView();
 
-				win.setTypeHint(Gdk.WindowTypeHint.SPLASHSCREEN);
+				win.setTypeHint(Gdk.WindowTypeHint.DIALOG);
 				web.setBackgroundColor(rgba);
 				win.setVisual(visual);
 				web.loadUri(url);
@@ -94,18 +94,19 @@ function open(target) {
 			const web = new WebKit.WebView();
 
 			web.loadUri(`http://127.0.0.1:${config.port}/${target}`);
-			win.setTypeHint(Gdk.WindowTypeHint.SPLASHSCREEN);
 			web.setBackgroundColor(rgba);
 			win.setVisual(visual);
 			win.add(web);
 			win.showAll();
 
 			if (target === 'dash') {
+				win.setTypeHint(Gdk.WindowTypeHint.SPLASHSCREEN);
 				win.fullscreen();
 				win.stick();
 			}
 
 			if (target === 'launch') {
+				win.setTypeHint(Gdk.WindowTypeHint.DIALOG);
 				win.stick();
 			}
 

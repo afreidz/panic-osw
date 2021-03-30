@@ -6,7 +6,7 @@ const logger = require('../../lib/logger');
 const config = require('../../config.proxy');
 
 async function streamWallpaper (i) {
-	const noop = Readable.from([null]);
+	const noop = Readable.from([]);
 	const wallpapers = config.feh
 		? (await cmd(`cat ~/.fehbg | grep -Po "(?<=')[^']+(?=')"`))
 			.split('\n')
