@@ -16,6 +16,7 @@ const consts = {
 	wms: ['i3'],
 	ips: ['::1', '127.0.0.1', '::ffff:127.0.0.1'],
 	views: ['dash','settings','locker','bar','launch'],
+	deps: ['pamtester', 'xrandr', 'systemctl', 'bt-adapter', 'bt-device', 'nmcli', 'cat', 'grep', 'awk', 'ps', 'getent', 'free'],
 };
 
 module.exports = consts;

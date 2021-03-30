@@ -2,12 +2,14 @@
   "name": "panic-osw",
   "version": "0.0.1",
   "description": "Panic Operating System Widgets",
-  "main": "./app/electron.js",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "app:watch": "npx rollup -c ./app/rollup.config.js -w",
     "app:build": "npx rollup -c ./app/rollup.config.js",
     "server:start": "node ./server",
-    "start": "npx electron ."
+    "start": "node ./app"
   },
   "bin": {
     "panicosw": "./cli/index.js"
@@ -17,6 +19,7 @@
   "dependencies": {
     "battery-level": "^3.0.0",
     "body-parser": "^1.19.0",
+    "chalk": "^4.1.0",
     "electron-log": "^4.3.2",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
@@ -27,8 +30,10 @@
     "node-gtk": "^0.7.0",
     "node-input-validator": "^4.4.0",
     "node-wifi": "^2.0.14",
+    "ora": "^5.4.0",
     "os-utils": "0.0.14",
     "prompts": "^2.4.0",
+    "semver": "^7.3.5",
     "webview": "^1.0.0",
     "ws": "^7.4.3",
     "yargs": "^16.2.0"

@@ -1,5 +1,4 @@
 const send = require('./socket');
-const fs = require('fs/promises');
 const { files } = require('../consts');
 const cmd = require('../lib/awaitcmd');
 const logger = require('../lib/logger');
