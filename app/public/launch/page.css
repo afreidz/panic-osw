@@ -27,7 +27,6 @@ body {
   flex: 1;
   padding: 0;
   display: flex;
-  user-select: none;
   align-items: flex-start;
   justify-content: center;
   background: transparent;

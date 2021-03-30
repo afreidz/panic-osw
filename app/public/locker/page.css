@@ -27,10 +27,10 @@ body {
   flex: 1;
   padding: 0;
   display: flex;
-  user-select: none;
   align-items: flex-start;
   justify-content: center;
   color: var(--color-text);
+  -webkit-user-select: none;
   background-size: 100% auto;
   background-position: left center;
   font-family: var(--value-font-standard);

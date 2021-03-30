@@ -21,7 +21,6 @@ html * {
 body {
   flex: 1;
   padding: 5%;
-  user-select: none;
   text-align: center;
   font-family: var(--value-font-standard);
 }

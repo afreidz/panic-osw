@@ -33,11 +33,11 @@ body {
   flex: 1;
   padding: 0;
   display: flex;
-  user-select: none;
   align-items: center;
   background: transparent;
   justify-content: center;
   color: var(--color-text);
+  -webkit-user-select: none;
   font-family: var(--value-font-standard);
 }
 

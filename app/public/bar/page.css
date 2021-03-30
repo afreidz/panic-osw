@@ -22,9 +22,9 @@ body {
   padding: 0;
   display: grid;
   overflow: hidden;
-  user-select: none;
   align-items: center;
   justify-content: stretch;
+  -webkit-user-select: none;
   background: rgba(var(--rgb-8), 0.2);
   grid-template-columns: 25% auto 25%;
   font-family: var(--value-font-standard);

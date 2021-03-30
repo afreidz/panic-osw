@@ -7,7 +7,7 @@ async function settings () {
 	const settings = require(files.config);
 	const values = {};
 
-	const (await cmd(`nmcli device status | awk 'FNR>1 {print $1}'`))
+	const interfaces = (await cmd(`nmcli device status | awk 'FNR>1 {print $1}'`))
 		.split('\n')
 		.filter(Boolean);
 
