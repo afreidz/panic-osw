@@ -51,11 +51,11 @@ socket.on('perf', e => {
   const cpuState = get(cpuUsage);
   const memState = get(memUsage);
 
-  const cpuIncoming = cpuState.length < 20
+  const cpuIncoming = cpuState.length < 100
     ? [...cpuState, cpu]
     : [...cpuState.slice(1), cpu];
 
-  const memIncoming = memState.length < 20
+  const memIncoming = memState.length < 100
     ? [...memState, mem]
     : [...memState.slice(1), mem];
 
