@@ -15,7 +15,18 @@ const windowCache = new Map();
 	await socket.ready;
 	socket.on('open', open);
 	socket.on('close', close);
-	socket.on('kill', () => Gtk.mainQuit());
+	socket.on('kill', () => {
+		for (let win of windowCache.values()) {
+			if (Array.isArray(win)) {
+				win.forEach(w => w.destroy());
+			} else {
+				win.destroy();
+			}
+		}
+		Gtk.mainQuit();
+		process.exit(0);
+	});
+	
 	gi.startLoop();
 	Gtk.init();
 
