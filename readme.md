@@ -15,7 +15,7 @@ Assuming you have read the Dependencies/Assumptions (you are running linux, have
 * Clone this repo
 * run `npm install` from the project folder
 * run `npm i -g .` from the project folder to symlink the cli 
-* run `panicosw setup` (note: `panicosw` is the default bin name, you can change it here if you dont like that)
+* run `panicosw setup` (note: `panicosw` is the default bin name, you can change it [here](https://github.com/afreidz/panic-osw/blob/90d8d74bfa7df0dbe18e09c70b6d0af6008a4c18/consts.js#L9) if you dont like that)
 
 ### Widgets
 Once you have installed everything, a basic config file will be created in `~/.config/panicosw` (there are more configurations options at `http://127.0.0.1:{port from setup}/settings`).  You now should have access to the following wigets:
