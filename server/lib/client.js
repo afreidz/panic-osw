@@ -60,14 +60,14 @@ class Client {
 
 		if (this.scopes.has('dash')) {
 			status.me().then(d => this.send(d));
-			status.music().then(d => this.send(d));
 			status.volume().then(d => this.send(d));
 			status.battery().then(d => this.send(d));
-			status.network().then(d => this.send(d));
-			status.displays().then(d => this.send(d));
 			status.bluetooth().then(d => this.send(d));
 			status.brightness().then(d => this.send(d));
-			if (config.secretstuff) status.devices().then(d => this.send(d));
+			if (config.music) status.music().then(d => this.send(d));
+			if (config.networking) status.network().then(d => this.send(d));
+			if (config.feh || config.wallpaper) status.displays().then(d => this.send(d));
+			if (config.secretstuff && config.devices) status.devices().then(d => this.send(d));
 		}
 
 		if (this.scopes.has('launch')) {
@@ -88,14 +88,14 @@ class Client {
 			this.#intervals.push(setInterval(() => status.perf().then(d => this.send(d)), 5000));
 
 			this.#intervals.push(setInterval(() => {
-				status.music().then(d => this.send(d));
+				if (config.music) status.music().then(d => this.send(d));
 				if (config.secretstuff) status.devices().then(d => this.send(d));
 			}, 1000));
 
 			this.#intervals.push(setInterval(() => {
 				status.battery().then(d => this.send(d));
-				status.network().then(d => this.send(d));
 				status.bluetooth().then(d => this.send(d));
+				if (config.networking) status.network().then(d => this.send(d));
 			}, 5000));
 		}
 

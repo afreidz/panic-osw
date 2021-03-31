@@ -1,8 +1,8 @@
 const fetch = require('node-fetch');
 const tokens = require('../lib/tokens');
+const logger = require('../../lib/logger');
 const deviceStatus = require('../status/devices');
 const { devices } = require('../../config.proxy');
-const logger = require('../../lib/logger');
 const statusToCmdMap = { 1: 2, 2: 3, 3: 4, 4: 1 };
 const { sign } = tokens;
 

@@ -9,7 +9,7 @@ export const speedtest = writable(JSON.parse(localStorage.getItem('speedtest') |
 speedtest.subscribe(v => localStorage.setItem('speedtest', JSON.stringify(v)));
 if (!get(speedtest)) network.speedtest().then(s => speedtest.set(s));
 
-export const wifi = writable(null);
+export const wifi = writable({ connected: false, ssid: null });
 export const ethernet = writable({ connected: false, ip: null });
 socket.on('network', e => wifi.set(e.detail.wifi));
 socket.on('network', e => ethernet.set(e.detail.eth));
@@ -51,11 +51,11 @@ socket.on('perf', e => {
   const cpuState = get(cpuUsage);
   const memState = get(memUsage);
 
-  const cpuIncoming = cpuState.length < 100
+  const cpuIncoming = cpuState.length < 120
     ? [...cpuState, cpu]
     : [...cpuState.slice(1), cpu];
 
-  const memIncoming = memState.length < 100
+  const memIncoming = memState.length < 120
     ? [...memState, mem]
     : [...memState.slice(1), mem];
 

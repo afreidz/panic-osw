@@ -68,6 +68,21 @@ exports.handler = async function (yargs) {
 		message: 'Which linux user are you?',
 		choices: users.map(u => ({ title: u, value: u })),
 	});
+	
+	questions.push({
+		name: 'i3',
+		initial: false,
+		type: 'confirm',
+		message: 'Do you run i3wm?',
+	});
+
+	questions.push({
+		name: 'feh',
+		initial: false,
+		type: 'confirm',
+		message: 'Do you run feh for setting desktop wallpaper?',
+	});
+
 
 	questions.push({
 		initial: false,
