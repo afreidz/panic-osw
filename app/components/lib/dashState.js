@@ -2,6 +2,9 @@ import { socket } from './socket';
 import { network } from './actions';
 import { writable, get } from 'svelte/store';
 
+export const widgets = writable(null);
+socket.on('widgets', e => widgets.set(e.detail));
+
 export const todos = writable(JSON.parse(localStorage.getItem('todos') || '[]'));
 todos.subscribe(v => localStorage.setItem('todos', JSON.stringify(v)));
 

@@ -62,6 +62,7 @@ class Client {
 			status.me().then(d => this.send(d));
 			status.volume().then(d => this.send(d));
 			status.battery().then(d => this.send(d));
+			status.widgets().then(d => this.send(d));
 			status.bluetooth().then(d => this.send(d));
 			status.brightness().then(d => this.send(d));
 			if (config.music) status.music().then(d => this.send(d));

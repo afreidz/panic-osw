@@ -1,7 +1,9 @@
 <script>
-	import Grid from './Grid.svelte';
+	import Grid1 from './Grid1.svelte';
+	import Grid2 from './Grid2.svelte';
 	import { socket } from './lib/socket';
 	import { visible } from './lib/state';
+	import { widgets } from './lib/dashState';
 
 	socket.send({ action: $visible ? 'active' : 'idle' });
 
@@ -13,6 +15,12 @@
 	});
 </script>
 
-<div class="container">
-	<Grid />
-</div>
+{#if !!$widgets}
+	<div class="container">
+		{#if $widgets.devices}
+			<Grid1/>
+		{:else}
+			<Grid2/>
+		{/if}
+	</div>
+{/if}
