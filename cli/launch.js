@@ -4,18 +4,18 @@ const LaunchClient = require('../lib/i3run.js');
 exports.command = 'launch';
 exports.describe = 'raise or run the <application>';
 exports.builder = function (yargs) {
-	yargs.option('type', { 
+	yargs.option('type', {
 		alias: 't',
 		type: 'array',
 		required: true,
-		choices: ['class', 'title'], 
+		choices: ['class', 'title'],
 	});
-	yargs.option('search', { 
+	yargs.option('search', {
 		alias: 's',
 		type: 'string',
 		required: true,
 	});
-	yargs.option('command', { 
+	yargs.option('command', {
 		alias: 'c',
 		type: 'string',
 		required: true,

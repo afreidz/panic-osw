@@ -1,7 +1,7 @@
 const os = require('os');
 const wifi = require('node-wifi');
 const cmd = require('../../lib/awaitcmd');
-const config = require('../../config.proxy'); 
+const config = require('../../config.proxy');
 
 async function status() {
 	const id = 'network';
@@ -9,7 +9,7 @@ async function status() {
 
 	const eth = (os.networkInterfaces()[config.networking.eth] || [])
 		.find(i => i.family === 'IPv4');
-	
+
 	const connection = (await wifi.getCurrentConnections())[0];
 	const wf = (os.networkInterfaces()[config.networking.wifi] || [])
 		.find(i => i.family === 'IPv4');

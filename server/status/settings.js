@@ -3,7 +3,7 @@ const { files } = require('../../consts');
 
 async function settings () {
 	delete require.cache[require.resolve(files.config)];
-	
+
 	const settings = require(files.config);
 	const values = {};
 

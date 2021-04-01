@@ -48,9 +48,9 @@
 	}
 
 	document.addEventListener('visibilitychange', () => {
-    const isVisible = !document.hidden;
-    visible.set(isVisible);
-  });
+	const isVisible = !document.hidden;
+	visible.set(isVisible);
+	});
 </script>
 
 {#if $visible}
@@ -74,7 +74,7 @@
 		border-radius: var(--value-radius);
 		box-shadow: var(--value-box-shadow);
 	}
-	
+
 	input {
 		border: none;
 		outline: none;

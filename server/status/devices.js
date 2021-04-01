@@ -10,7 +10,7 @@ module.exports = async function () {
 	const client_id = config.devices.key;
 	const access_token = await tokens.device();
 	const ids = config.devices.configured.map(d => d.id).join(',');
-	
+
 	const devices = (await (await fetch(`${config.devices.url}/devices/status?device_ids=${ids}`,{
 		method: 'get',
 		headers: {

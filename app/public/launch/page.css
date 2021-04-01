@@ -1,37 +1,37 @@
 @import '../variables.css';
 
 html {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  min-height: 100%;
-  box-sizing: border-box;
-  background: transparent;
-  font-size: var(--size-rem);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	min-height: 100%;
+	box-sizing: border-box;
+	background: transparent;
+	font-size: var(--size-rem);
 }
 
 html * {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+	border: none;
+	box-sizing: inherit;
 }
 
 button {
-  border: none;
-  outline: none;
-  appearance: none;
+	border: none;
+	outline: none;
+	appearance: none;
 }
 
 body {
-  flex: 1;
-  padding: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  background: transparent;
-  color: var(--color-text);
-  font-family: var(--value-font-standard);
+	flex: 1;
+	padding: 0;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	background: transparent;
+	color: var(--color-text);
+	font-family: var(--value-font-standard);
 }
 
 body * { color: inherit; font-family: inherit; }

@@ -8,12 +8,12 @@ const { files, dirs } = require('../consts');
 exports.command = 'run';
 exports.describe = 'runs the <command(s)>';
 exports.builder = function (yargs) {
-	yargs.option('command', { 
+	yargs.option('command', {
 		alias: 'c',
 		type: 'array',
 		required: true,
 		default: ['server', 'app'],
-		choices: ['server', 'build', 'app'], 
+		choices: ['server', 'build', 'app'],
 	});
 	return yargs;
 }
@@ -27,7 +27,7 @@ exports.handler = async function (args) {
 		await kill({ command: ['server']});
 		const server = spawn('sh', ['-c', `node ./server`], {
 			cwd: dirs.root,
-			detached: true, 
+			detached: true,
 			stdio: ['ignore',log,log],
 		});
 		server.on('close', logger.error);

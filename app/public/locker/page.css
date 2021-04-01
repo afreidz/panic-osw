@@ -1,43 +1,43 @@
 @import '../variables.css';
 
 html {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  min-height: 100%;
-  box-sizing: border-box;
-  background: transparent;
-  font-size: var(--size-rem);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	min-height: 100%;
+	box-sizing: border-box;
+	background: transparent;
+	font-size: var(--size-rem);
 }
 
 html * {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+	border: none;
+	box-sizing: inherit;
 }
 
 button {
-  border: none;
-  outline: none;
-  appearance: none;
+	border: none;
+	outline: none;
+	appearance: none;
 }
 
 body {
-  flex: 1;
-  padding: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  color: var(--color-text);
-  -webkit-user-select: none;
-  background-size: 100% auto;
-  background-position: left center;
-  font-family: var(--value-font-standard);
-  background-image: url('/display/wallpaper/1');
+	flex: 1;
+	padding: 0;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	color: var(--color-text);
+	-webkit-user-select: none;
+	background-size: 100% auto;
+	background-position: left center;
+	font-family: var(--value-font-standard);
+	background-image: url('/display/wallpaper/1');
 }
 body.blank {
-  background-image: url('/display/wallpaper/2');
+	background-image: url('/display/wallpaper/2');
 }
 
 

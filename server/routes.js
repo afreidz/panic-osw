@@ -50,9 +50,9 @@ router.post('/:target/:action', ash(async (req, res) => {
 	const valid = await validator.check();
 	const { errors } = validator;
 	if (!valid) return res.status(422).json({ errors });
-	
+
 	const command = actions[target][action];
-	
+
 	if (target === 'network' && action === 'speed') {
 		const speed = await command(req.body);
 		return res.json(speed);

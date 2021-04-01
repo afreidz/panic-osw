@@ -3,7 +3,7 @@ class SocketClient extends EventTarget {
 		super();
 		this.socket = new WebSocket(url, prot);
 		this.ready = new Promise(r => this.socket.addEventListener('open',r));
-		
+
 		this.socket.addEventListener('message', e => {
 			const detail = JSON.parse(e.data);
 			const type = `${detail.id}`;

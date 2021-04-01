@@ -1,28 +1,28 @@
 @import '../variables.css';
 
 html {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  min-height: 100%;
-  box-sizing: border-box;
-  background-size: cover;
-  background: var(--color-3);
-  font-size: min(calc(100% - 4px), 30px);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	min-height: 100%;
+	box-sizing: border-box;
+	background-size: cover;
+	background: var(--color-3);
+	font-size: min(calc(100% - 4px), 30px);
 }
 
 html * {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+	border: none;
+	box-sizing: inherit;
 }
 
 body {
-  flex: 1;
-  padding: 5%;
-  text-align: center;
-  font-family: var(--value-font-standard);
+	flex: 1;
+	padding: 5%;
+	text-align: center;
+	font-family: var(--value-font-standard);
 }
 
 body * { color: inherit; font-family: inherit; }

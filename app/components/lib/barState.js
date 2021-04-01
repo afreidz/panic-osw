@@ -17,9 +17,9 @@ socket.on('workspaces', e => {
 socket.on('layout', e => {
 	if (e.detail.layout) {
 		const layout = e.detail.layout;
-    if (layout === 'splith') mode.set('󰢥');
-    if (layout === 'splitv') mode.set('󰢢');
-    if (layout === 'resize') mode.set('󰁌');
-    if (layout === 'launch') mode.set('󰍉');
+	if (layout === 'splith') mode.set('󰢥');
+	if (layout === 'splitv') mode.set('󰢢');
+	if (layout === 'resize') mode.set('󰁌');
+	if (layout === 'launch') mode.set('󰍉');
 	}
 });

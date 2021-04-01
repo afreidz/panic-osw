@@ -44,7 +44,7 @@ exports.handler = async function (yargs) {
 
 	delete require.cache[require.resolve(files.config)];
 	const existing = require(files.config);
-	
+
 	const questions = [{
 		max: 65535,
 		name: 'port',
@@ -68,7 +68,7 @@ exports.handler = async function (yargs) {
 		message: 'Which linux user are you?',
 		choices: users.map(u => ({ title: u, value: u })),
 	});
-	
+
 	questions.push({
 		name: 'i3',
 		initial: false,
@@ -95,7 +95,7 @@ exports.handler = async function (yargs) {
 	const start = !!responses.startup;
 	delete responses.startup;
 	await fs.writeFile(files.config, JSON.stringify({ ...existing, ...responses }, null, 2));
-	
+
 	if(start) {
 		await cmd(`${bin} run -c build -c server -c app`);
 		console.log(`

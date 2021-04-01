@@ -47,18 +47,18 @@ export const battery = writable(null);
 socket.on('battery', e => battery.set(e.detail.level));
 
 socket.on('perf', e => {
-  const { cpu, mem } = e.detail;
-  const cpuState = get(cpuUsage);
-  const memState = get(memUsage);
+	const { cpu, mem } = e.detail;
+	const cpuState = get(cpuUsage);
+	const memState = get(memUsage);
 
-  const cpuIncoming = cpuState.length < 120
-    ? [...cpuState, cpu]
-    : [...cpuState.slice(1), cpu];
+	const cpuIncoming = cpuState.length < 120
+		? [...cpuState, cpu]
+		: [...cpuState.slice(1), cpu];
 
-  const memIncoming = memState.length < 120
-    ? [...memState, mem]
-    : [...memState.slice(1), mem];
+	const memIncoming = memState.length < 120
+		? [...memState, mem]
+		: [...memState.slice(1), mem];
 
-  cpuUsage.set(cpuIncoming);
-  memUsage.set(memIncoming);
+	cpuUsage.set(cpuIncoming);
+	memUsage.set(memIncoming);
 });

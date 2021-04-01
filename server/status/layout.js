@@ -6,7 +6,7 @@ module.exports = async function (data) {
 	const { binding } = JSON.parse(data.toString());
 	if (binding.command && layoutCommands.some(c => binding.command.includes(c))) {
 		let layout = binding.command;
-		
+
 		if (layout.includes('splith')) {
 			layoutCache = 'splith';
 		} else if (layout.includes('splitv')) {
@@ -24,7 +24,7 @@ module.exports = async function (data) {
 		if (layout.includes('mode "launch"')) {
 			layout = 'launch';
 		}
-		
+
 		return { id, layout };
 	}
 }

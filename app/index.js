@@ -26,7 +26,7 @@ const windowCache = new Map();
 		Gtk.mainQuit();
 		process.exit(0);
 	});
-	
+
 	gi.startLoop();
 	Gtk.init();
 
@@ -36,7 +36,7 @@ const windowCache = new Map();
 	styles.loadFromData(`
 		#panic-osw-launch { background-color: rgba(0,0,0,0); }
 	`);
-	
+
 	Gtk.StyleContext.addProviderForScreen(screen, styles, priority);
 	Gtk.main();
 })();
@@ -78,7 +78,7 @@ function open(target) {
 				const name = Screen.getMonitorPlugName(i);
 				const geo = Screen.getMonitorGeometry(i);
 				const type = i === 0 ? `panic-osw-${target}` : `panic-osw-${target}-blank`;
-				const url = i === 0 
+				const url = i === 0
 					? `http://127.0.0.1:${config.port}/locker?user=${config.user}`
 					: `http://127.0.0.1:${config.port}/locker/blank.html`;
 

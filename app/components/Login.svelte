@@ -15,7 +15,7 @@
 	async function login() {
 		state = null;
 		processing = true;
-		
+
 		try {
 			await system.login($whoami, pass);
 			processing = false;
@@ -32,11 +32,11 @@
 	}
 
 	document.addEventListener('visibilitychange', () => {
-    const isVisible = !document.hidden;
-    visible.set(isVisible);
-    socket.send({ action: isVisible ? 'active' : 'idle' });
-    document.body.classList.toggle('visible', isVisible);
-  });
+	const isVisible = !document.hidden;
+	visible.set(isVisible);
+	socket.send({ action: isVisible ? 'active' : 'idle' });
+	document.body.classList.toggle('visible', isVisible);
+	});
 </script>
 
 <div class="login">
@@ -46,10 +46,10 @@
 			<input type="hidden" name="user" bind:value={$whoami} />
 			<label class:error={state === false} class:success={state === true}>
 				<img src="/me/avatar" alt="avatar">
-				<input 
-					name="pass" 
-					type="password" 
-					bind:value={pass} 
+				<input
+					name="pass"
+					type="password"
+					bind:value={pass}
 					bind:this={focus}
 					disabled={!!processing}
 					on:input={() => state = null}
@@ -72,15 +72,15 @@
 
 	form {
 		display: flex;
-	}	
+	}
 
 	label {
 		display: flex;
 		font-size: 1rem;
 		overflow: hidden;
 		border-radius: var(--value-radius);
-    box-shadow: var(--value-box-shadow);
-    background-color: var(--color-panel);
+	box-shadow: var(--value-box-shadow);
+	background-color: var(--color-panel);
 	}
 
 	label > img {
@@ -101,7 +101,7 @@
 	input:disabled {
 		opacity: 0.3;
 	}
-	
+
 	input::placeholder {
 		color: rgba(255,255,255,0.2);
 	}

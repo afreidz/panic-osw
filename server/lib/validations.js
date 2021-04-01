@@ -22,7 +22,7 @@ types['settings.update'] = {
 	'settings.wm': `in:${wms.join(',')}`,
 	'settings.wallpaper.provider': 'in:i3',
 	'settings.port': 'integer|between:0,65535',
-	
+
 	'settings.devices.url': 'url',
 	'settings.devices.key': 'string|maxLength:40',
 	'settings.devices.configured.*.spot': 'integer',
@@ -39,6 +39,6 @@ module.exports = async function(data, type) {
 	if (!ifs) ifs = await interfaces();
 	types['settings.update']['settings.networking.eth'] = `in:${ifs.join(',')}`;
 	types['settings.update']['settings.networking.wifi'] = `in:${ifs.join(',')}`;
-	
+
 	return new Validator(data, types[type] || {});
 }

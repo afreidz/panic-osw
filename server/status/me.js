@@ -9,7 +9,7 @@ const logger = require('../../lib/logger');
 async function streamAvatar() {
 	const noop = Readable.from([]);
 	const path = `/home/${config.user || os.userInfo().username}/.face`;
-	
+
 	try {
 		await fsp.access(path)
 	} catch (_) {

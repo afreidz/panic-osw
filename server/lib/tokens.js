@@ -35,32 +35,32 @@ async function deviceToken() {
 }
 
 async function musicToken() {
-  if(!!api.music.token) return api.music.token;
-  
-  const body = new URLSearchParams();
-  body.append('grant_type', 'refresh_token');
-  body.append('refresh_token', config.music.refresh);
+	if(!!api.music.token) return api.music.token;
 
-  const resp = await fetch(`${config.music.auth}/api/token`, {
-    body,
-    method: 'POST',
-    headers: { 'Authorization': `Basic ${Buffer.from(`${config.music.key}:${config.music.secret}`).toString('base64')}` },
-  });
+	const body = new URLSearchParams();
+	body.append('grant_type', 'refresh_token');
+	body.append('refresh_token', config.music.refresh);
 
-  const { access_token } = await resp.json();
-  
-  api.music.token = access_token;
-  return access_token;
+	const resp = await fetch(`${config.music.auth}/api/token`, {
+		body,
+		method: 'POST',
+		headers: { 'Authorization': `Basic ${Buffer.from(`${config.music.key}:${config.music.secret}`).toString('base64')}` },
+	});
+
+	const { access_token } = await resp.json();
+
+	api.music.token = access_token;
+	return access_token;
 }
 
 function sign(base, secret, t) {
-  const str = base + t;
-  const hash = crypto
-    .createHmac('sha256', secret)
-    .update(str)
-    .digest('hex')
-    .toUpperCase();
-  return hash;
+	const str = base + t;
+	const hash = crypto
+		.createHmac('sha256', secret)
+		.update(str)
+		.digest('hex')
+		.toUpperCase();
+	return hash;
 }
 
 exports.device = deviceToken;

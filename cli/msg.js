@@ -12,7 +12,7 @@ exports.builder = function (yargs) {
 exports.handler = async function (args) {
 	const socket = new ws(`ws://127.0.0.1:${config.port}`, 'ipc');
 	socket.on('error', error);
-	
+
 	socket.on('open', () => {
 		const { target, action } = args;
 		socket.send(JSON.stringify({ target, action }));
@@ -24,5 +24,5 @@ exports.handler = async function (args) {
 
 function error() {
 	console.log(`Error connecting to socket at ws://127.0.0.1:${config.port}`);
-	process.exit(1);	
+	process.exit(1);
 }

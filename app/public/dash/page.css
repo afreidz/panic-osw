@@ -1,49 +1,49 @@
 @import '../variables.css';
 
-@media only screen and (max-width:1440px) { 
-	:root { 
-    --value-scale: 0.79; 
-  }
+@media only screen and (max-width:1440px) {
+	:root {
+		--value-scale: 0.79;
+	}
 }
 
 html {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  min-height: 100%;
-  box-sizing: border-box;
-  background: transparent;
-  font-size: var(--size-rem);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	min-height: 100%;
+	box-sizing: border-box;
+	background: transparent;
+	font-size: var(--size-rem);
 }
 
 html * {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: inherit;
+	margin: 0;
+	padding: 0;
+	border: none;
+	box-sizing: inherit;
 }
 
 button {
-  border: none;
-  outline: none;
-  appearance: none;
+	border: none;
+	outline: none;
+	appearance: none;
 }
 
 body {
-  flex: 1;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  background: transparent;
-  justify-content: center;
-  color: var(--color-text);
-  -webkit-user-select: none;
-  font-family: var(--value-font-standard);
+	flex: 1;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	background: transparent;
+	justify-content: center;
+	color: var(--color-text);
+	-webkit-user-select: none;
+	font-family: var(--value-font-standard);
 }
 
-body .container { 
-  transform-origin: left center;
-  transform: scale(var(--value-scale));
+body .container {
+	transform-origin: left center;
+	transform: scale(var(--value-scale));
 }
 
 body * { color: inherit; font-family: inherit; }

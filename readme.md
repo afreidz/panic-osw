@@ -1,5 +1,5 @@
 ##  😨 Panic OS Widgets
-These are my own personal OS widgets for use with linux in an X11 window manager setting.  I developed them for my wants but maybe you will get some use out of this repo to make something for yourself.  The widgets are rendered using [GTK](https://www.gtk.org/)+[WebKit2](https://webkitgtk.org/) via [NodeGTK](https://github.com/romgrk/node-gtk).  
+These are my own personal OS widgets for use with linux in an X11 window manager setting.  I developed them for my wants but maybe you will get some use out of this repo to make something for yourself.  The widgets are rendered using [GTK](https://www.gtk.org/)+[WebKit2](https://webkitgtk.org/) via [NodeGTK](https://github.com/romgrk/node-gtk).
 ### Directory-Structure/Architecture
 * **/cli** this is the source directory for a bin that can be used to manage most aspects of the widgets.  It is a [nodejs](https://nodejs.org/en/) process.  It includes an initial setup command, commands for starting/stopping various processes, and commands for opening and closing the widgets (which can be bound to hotkeys thru the preferred window manager methods).
 * **/app** this is the source directory for the front-end widgets.  It provides a long-running process hooked into [GTK](https://www.gtk.org/) to create bare-bones app windows containing [WebKit2](https://webkitgtk.org/) webviews for the widget UI.  When signaled, this process will build or show an existing gtk window for a widget. It also houses the UI components which are built using [svelte](https://svelte.dev/) javascript framework to manage updating the UI when data changes occur.
@@ -9,12 +9,12 @@ These are my own personal OS widgets for use with linux in an X11 window manager
 * **(Arch-)Linux:** As I mentioned these are my personal widgets. I have only developed them to work on my setup.  I run Arch btw 😊. Initially I supported the darwin (mac) platform but decided that only 1 of the widgets works as intended on darwin (mac), so I may just create a separate project for it. [See more about ArchLinux](https://archlinux.org/)
 * **NodeJS/NPM:** I know javascript so I guess I might as well use it for all the things.  [Express](https://expressjs.com/) is easy to setup, and with a few safeguards in place, can be restricted to internal traffic only. [Websockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) are a nice real-time way of handling communication across cli/app/server.  Surprisingly, there are some half-decent npm modules for making cli apps too.  [See more about NodeJS](https://nodejs.org/en/) and [NPM](https://www.npmjs.com/)
 * **GTK:** Leveraging GTK allows me to use WebKit2 webviews for the widgets.  Early on in this project I defaulted to [Electron](https://www.electronjs.org/) which is a go-to for many to use web technologies to render desktop apps (cross platform).  Much has been made about the resource constraints for electron and odds are that most linux users already have GTK (and GTKWebKit2 by extension).  So depending on a prebuilt binary of electron doesnt make a ton of sense if I am only building this for my linux setup.  As such, GTK is a better option.  [See more about GTK in the NodeJS context.](https://github.com/romgrk/node-gtk)
-* **App Deps:** This list may change so I will keep it generic.  There are some app-level dependencies that are necessary to get the data used in the widgets.  Most of them are handled thru `npm` however there are quite a few instances of the server issuing bash commands to get sytem information.  The cli setup command should check to see if they are all satisfied and print which ones are not.  I may also build in something to install them if the system is ArchLinux+yay. 
+* **App Deps:** This list may change so I will keep it generic.  There are some app-level dependencies that are necessary to get the data used in the widgets.  Most of them are handled thru `npm` however there are quite a few instances of the server issuing bash commands to get sytem information.  The cli setup command should check to see if they are all satisfied and print which ones are not.  I may also build in something to install them if the system is ArchLinux+yay.
 ### Installation
 Assuming you have read the Dependencies/Assumptions (you are running linux, have node/npm/gtk installed) you can install everything with the following steps:
 * Clone this repo
 * run `npm install` from the project folder
-* run `npm i -g .` from the project folder to symlink the cli 
+* run `npm i -g .` from the project folder to symlink the cli
 * run `panicosw setup` (note: `panicosw` is the default bin name, you can change it [here](https://github.com/afreidz/panic-osw/blob/90d8d74bfa7df0dbe18e09c70b6d0af6008a4c18/consts.js#L9) if you dont like that)
 
 ### Widgets
@@ -80,16 +80,16 @@ shadow-exclude = [
 ]
 
 rounded-corners-exclude = [
-  "window_type = 'dock'",
-  "window_type = 'splash'",
-  "window_type = 'dialog'",
+	"window_type = 'dock'",
+	"window_type = 'splash'",
+	"window_type = 'dialog'",
 ];
 
 wintypes: {
-  dock = { shadow: false },
-  splash = { shadow: false },
-  dialog = { shadow: false },
-  utility = { shadow: false },
+	dock = { shadow: false },
+	splash = { shadow: false },
+	dialog = { shadow: false },
+	utility = { shadow: false },
 };
 ```
 ### Misc Notes

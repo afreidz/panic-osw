@@ -1,51 +1,64 @@
 {
-  "name": "panic-osw",
-  "version": "0.0.1",
-  "description": "Panic Operating System Widgets",
-  "engines": {
-    "node": ">=14"
-  },
-  "scripts": {
-    "app:watch": "npx rollup -c ./app/rollup.config.js -w",
-    "app:build": "npx rollup -c ./app/rollup.config.js",
-    "server:start": "node ./server",
-    "start": "node ./app"
-  },
-  "bin": {
-    "panicosw": "./cli/index.js"
-  },
-  "author": "afreidz",
-  "license": "ISC",
-  "dependencies": {
-    "battery-level": "^3.0.0",
-    "body-parser": "^1.19.0",
-    "chalk": "^4.1.0",
-    "electron-log": "^4.3.2",
-    "express": "^4.17.1",
-    "express-async-handler": "^1.1.4",
-    "fuse.js": "^3.4.3",
-    "ini": "^2.0.0",
-    "loudness": "^0.4.1",
-    "node-fetch": "^2.6.1",
-    "node-gtk": "^0.7.0",
-    "node-input-validator": "^4.4.0",
-    "node-wifi": "^2.0.14",
-    "ora": "^5.4.0",
-    "os-utils": "0.0.14",
-    "prompts": "^2.4.0",
-    "semver": "^7.3.5",
-    "webview": "^1.0.0",
-    "ws": "^7.4.3",
-    "yargs": "^16.2.0"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "apexcharts": "^3.25.0",
-    "electron": "^12.0.0",
-    "rollup": "^2.40.0",
-    "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-svelte": "^7.1.0",
-    "svelte": "^3.35.0"
-  }
+	"name": "panic-osw",
+	"version": "0.0.1",
+	"description": "Panic Operating System Widgets",
+	"engines": {
+		"node": ">=14"
+	},
+	"scripts": {
+		"fix": "npx eclint fix $(git ls-files)",
+		"lint": "npx eclint check $(git ls-files)",
+		"app-watch": "npx rollup -c ./app/rollup.config.js -w",
+		"app-build": "npx rollup -c ./app/rollup.config.js",
+		"server": "node ./server",
+		"start": "node ./app"
+	},
+	"bin": {
+		"panicosw": "./cli/index.js"
+	},
+	"lint-staged": {
+		"*": "npx eclint check"
+	},
+	"husky": {
+		"hooks": {
+			"pre-push": "lint-staged"
+		}
+	},
+	"author": "afreidz",
+	"license": "ISC",
+	"dependencies": {
+		"battery-level": "^3.0.0",
+		"body-parser": "^1.19.0",
+		"chalk": "^4.1.0",
+		"eclint": "^2.8.1",
+		"electron-log": "^4.3.2",
+		"express": "^4.17.1",
+		"express-async-handler": "^1.1.4",
+		"fuse.js": "^3.4.3",
+		"husky": "^6.0.0",
+		"ini": "^2.0.0",
+		"lint-staged": "^10.5.4",
+		"loudness": "^0.4.1",
+		"node-fetch": "^2.6.1",
+		"node-gtk": "^0.7.0",
+		"node-input-validator": "^4.4.0",
+		"node-wifi": "^2.0.14",
+		"ora": "^5.4.0",
+		"os-utils": "0.0.14",
+		"prompts": "^2.4.0",
+		"semver": "^7.3.5",
+		"webview": "^1.0.0",
+		"ws": "^7.4.3",
+		"yargs": "^16.2.0"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^17.1.0",
+		"@rollup/plugin-node-resolve": "^11.2.0",
+		"apexcharts": "^3.25.0",
+		"electron": "^12.0.0",
+		"rollup": "^2.40.0",
+		"rollup-plugin-css-only": "^3.1.0",
+		"rollup-plugin-svelte": "^7.1.0",
+		"svelte": "^3.35.0"
+	}
 }

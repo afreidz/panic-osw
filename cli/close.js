@@ -5,11 +5,11 @@ const config = require('../config.proxy');
 exports.command = 'close';
 exports.describe = 'close the <window(s)>';
 exports.builder = function (yargs) {
-	yargs.option('window', { 
+	yargs.option('window', {
 		alias: 'w',
 		type: 'array',
 		required: true,
-		choices: ['locker', 'dash', 'bar', 'launch'], 
+		choices: ['locker', 'dash', 'bar', 'launch'],
 	});
 	return yargs;
 }

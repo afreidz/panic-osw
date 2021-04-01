@@ -17,4 +17,3 @@ module.exports = async function () {
 	}));
 	return { id, workspaces };
 }
-
