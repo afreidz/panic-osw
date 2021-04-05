@@ -19,11 +19,6 @@
 	"lint-staged": {
 		"*": "npx eclint check"
 	},
-	"husky": {
-		"hooks": {
-			"pre-push": "lint-staged"
-		}
-	},
 	"author": "afreidz",
 	"license": "ISC",
 	"dependencies": {
