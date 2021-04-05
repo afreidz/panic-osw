@@ -50,6 +50,7 @@
 		<form bind:this={form} on:change={update} action="/" method="POST">
 			<header>
 				<h1>Settings</h1>
+				<a class="back" href="javascript:history.back()">Back</a>
 			</header>
 			<section>
 				<h2>General</h2>
@@ -162,6 +163,7 @@
 					{/each}
 					<button on:click|preventDefault={addDevice}>󰐖 Add Device</button>
 				</section>
+				<a class="back" href="javascript:history.back()">Back</a>
 			{/if}
 		</form>
 	{/if}
@@ -174,6 +176,12 @@
 
 	header {
 		position: relative;
+	}
+
+	header .back {
+		top: 0;
+		right: 2rem;
+		position: absolute;
 	}
 
 	h1 {
@@ -287,4 +295,16 @@
 	label > input::placeholder { opacity: 0.5; }
 	label.port > input { max-width: 10rem; text-align: center; }
 	label > input:focus, label > select:focus { border-color: var(--color-highlight-10); }
+
+	.back, .back:visited, .back:active {
+		border: none;
+		outline: none;
+		padding: 1rem;
+		font-weight: 700;
+		text-align: center;
+		margin-bottom: 1rem;
+		text-decoration: none;
+		display: inline-block;
+		background: var(--color-highlight-10);
+	}
 </style>

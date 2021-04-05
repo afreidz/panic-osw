@@ -17,11 +17,11 @@ class ListedSet extends Set {
 
 class Client {
 	#ws = null;
+	#active = true;
 	#intervals = [];
 
 	constructor(ws, scopes = []) {
 		this.#ws = ws;
-		this.active = true;
 		this.scopes = new ListedSet();
 
 		scopes.forEach(s => this.scopes.add(s));
@@ -34,6 +34,16 @@ class Client {
 		clients.add(this);
 		if (this.ready && !this.ipc) this.update();
 		logger.log(`socket connected | scopes: [${this.scopes.list.join(',')}]`);
+	}
+
+	get active() {
+		return this.#active;
+	}
+
+	set active(v) {
+		this.#active = !!v;
+		if (this.#active) this.update();
+		return this;
 	}
 
 	get ipc() {
