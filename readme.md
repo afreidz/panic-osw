@@ -94,3 +94,6 @@ wintypes: {
 ```
 ### Misc Notes
 The widgets leverage EWMH to make suggestions to the window manager about how to handle the window.  The types used are `dock` for the **bar** widget, `splash` for the **dash** widget, `dialog` for the **locker** and the **launch** widget.
+### TODO
+- [ ] investigate potential memory leaks
+- [ ] maybe a weather widget?
