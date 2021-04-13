@@ -74,6 +74,10 @@
 	background-color: var(--color-highlight-19) !important;
 	background-image: linear-gradient(rgba(var(--rgb-light), 0.1) 0%, rgba(var(--rgb-light), 0) 100%) !important;
 }
+.bg_highlight_20, .bg_highlight_20 .bg_highlight {
+	background-color: var(--color-highlight-20) !important;
+	background-image: linear-gradient(rgba(var(--rgb-light), 0.1) 0%, rgba(var(--rgb-light), 0) 100%) !important;
+}
 .fg_highlight_1, .fg_highlight_1 .fg_highlight {
 	color: var(--color-highlight-1) !important;
 }
@@ -130,6 +134,9 @@
 }
 .fg_highlight_19, .fg_highlight_19 .fg_highlight {
 	color: var(--color-highlight-19) !important;
+}
+.fg_highlight_20, .fg_highlight_20 .fg_highlight {
+	color: var(--color-highlight-20) !important;
 }
 .fill_highlight_1 * {
 	fill: var(--color-highlight-1) !important;
@@ -188,6 +195,9 @@
 .fill_highlight_19 * {
 	fill: var(--color-highlight-19) !important;
 }
+.fill_highlight_20 * {
+	fill: var(--color-highlight-20) !important;
+}
 .stroke_highlight_1 * {
 	stroke: var(--color-highlight-1) !important;
 }
@@ -244,4 +254,7 @@
 }
 .stroke_highlight_19 * {
 	stroke: var(--color-highlight-19) !important;
+}
+.stroke_highlight_20 * {
+	stroke: var(--color-highlight-20) !important;
 }

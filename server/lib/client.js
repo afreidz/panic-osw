@@ -9,123 +9,126 @@ const binding = spawn(`sh`, ['-c', `i3-msg -m -t subscribe '["binding"]'`]);
 const workspace = spawn(`sh`, ['-c', `i3-msg -m -t subscribe '["workspace"]'`]);
 
 class ListedSet extends Set {
-	constructor(args) {
-		super(args);
-	}
-	get list() { return [...this] }
+  constructor(args) {
+    super(args);
+  }
+  get list() { return [...this] }
 }
 
 class Client {
-	#ws = null;
-	#active = true;
-	#intervals = [];
+  #ws = null;
+  #active = true;
+  #intervals = [];
 
-	constructor(ws, scopes = []) {
-		this.#ws = ws;
-		this.scopes = new ListedSet();
+  constructor(ws, scopes = []) {
+    this.#ws = ws;
+    this.scopes = new ListedSet();
 
-		scopes.forEach(s => this.scopes.add(s));
+    scopes.forEach(s => this.scopes.add(s));
 
-		ws.on('close', () => {
-			clients.delete(this);
-			logger.log(`socket disconnected | scopes: [${this.scopes.list.join(',')}]`);
-		});
+    ws.on('close', () => {
+      clients.delete(this);
+      logger.log(`socket disconnected | scopes: [${this.scopes.list.join(',')}]`);
+    });
 
-		clients.add(this);
-		if (this.ready && !this.ipc) this.update();
-		logger.log(`socket connected | scopes: [${this.scopes.list.join(',')}]`);
-	}
+    clients.add(this);
+    if (this.ready && !this.ipc) this.update();
+    logger.log(`socket connected | scopes: [${this.scopes.list.join(',')}]`);
+  }
 
-	get active() {
-		return this.#active;
-	}
+  get active() {
+    return this.#active;
+  }
 
-	set active(v) {
-		this.#active = !!v;
-		if (this.#active) this.update();
-		return this;
-	}
+  set active(v) {
+    this.#active = !!v;
+    if (this.#active) this.update();
+    return this;
+  }
 
-	get ipc() {
-		return this.#ws.protocol === 'ipc';
-	}
+  get ipc() {
+    return this.#ws.protocol === 'ipc';
+  }
 
-	get ready() {
-		return this.#ws.readyState === OPEN;
-	}
+  get ready() {
+    return this.#ws.readyState === OPEN;
+  }
 
-	send(data) {
-		this.#ws.send(JSON.stringify(data));
-		return this;
-	}
+  send(data) {
+    this.#ws.send(JSON.stringify(data));
+    return this;
+  }
 
-	rawsend(data) {
-		this.#ws.send(data);
-		return this;
-	}
+  rawsend(data) {
+    this.#ws.send(data);
+    return this;
+  }
 
-	async update() {
-		if (this.ipc) return this;
-		if (!this.active) return this;
+  async update() {
+    if (this.ipc) return this;
+    if (!this.active) return this;
 
-		if (this.scopes.has('dash')) {
-			status.me().then(d => this.send(d));
-			status.volume().then(d => this.send(d));
-			status.battery().then(d => this.send(d));
-			status.widgets().then(d => this.send(d));
-			status.bluetooth().then(d => this.send(d));
-			status.brightness().then(d => this.send(d));
-			if (config.music) status.music().then(d => this.send(d));
-			if (config.networking) status.network().then(d => this.send(d));
-			if (config.feh || config.wallpaper) status.displays().then(d => this.send(d));
-			if (config.secretstuff && config.devices) status.devices().then(d => this.send(d));
-		}
+    if (this.scopes.has('dash')) {
+      status.me().then(d => this.send(d));
+      status.volume().then(d => this.send(d));
+      status.battery().then(d => this.send(d));
+      status.widgets().then(d => this.send(d));
+      status.bluetooth().then(d => this.send(d));
+      status.brightness().then(d => this.send(d));
+      if (config.music) status.music().then(d => this.send(d));
+      if (config.networking) status.network().then(d => this.send(d));
+      if (config.feh || config.wallpaper) status.displays().then(d => this.send(d));
+      if (config.secretstuff && config.devices) status.devices().then(d => this.send(d));
+    }
 
-		if (this.scopes.has('launch')) {
-			status.apps().then(d => this.send(d));
-		}
+    if (this.scopes.has('launch')) {
+      status.apps().then(d => this.send(d));
+    }
 
-		if (this.scopes.has('bar')) {
-			status.workspaces().then(d => this.send(d));
-		}
-		return this;
-	}
+    if (this.scopes.has('bar')) {
+      status.workspaces().then(d => this.send(d));
+    }
+    return this;
+  }
 
-	start() {
-		if (this.ipc) return this;
-		if (this.#intervals.length) this.#intervals.forEach(clearInterval);
+  start() {
+    if (this.ipc) return this;
+    if (this.#intervals.length) this.#intervals.forEach(clearInterval);
 
-		if (this.scopes.has('dash')) {
-			this.#intervals.push(setInterval(() => status.perf().then(d => this.send(d)), 5000));
+    if (this.scopes.has('dash')) {
+      this.#intervals.push(setInterval(() => status.perf().then(d => this.send(d)), 5000));
 
-			this.#intervals.push(setInterval(() => {
-				if (config.music) status.music().then(d => this.send(d));
-				if (config.secretstuff) status.devices().then(d => this.send(d));
-			}, 1000));
+      status.weather().then(d => this.send(d));
+      this.#intervals.push(setInterval(() => status.weather().then(d => this.send(d)), 300000));
 
-			this.#intervals.push(setInterval(() => {
-				status.battery().then(d => this.send(d));
-				status.bluetooth().then(d => this.send(d));
-				if (config.networking) status.network().then(d => this.send(d));
-			}, 5000));
-		}
+      this.#intervals.push(setInterval(() => {
+        if (config.music) status.music().then(d => this.send(d));
+        if (config.secretstuff) status.devices().then(d => this.send(d));
+      }, 1000));
 
-		if (this.scopes.has('bar')) {
-			binding.stdout.on('data', d => status.layout(d).then(d => this.send(d)));
-			workspace.stdout.on('data', () => status.workspaces().then(d => this.send(d)));
-		}
+      this.#intervals.push(setInterval(() => {
+        status.battery().then(d => this.send(d));
+        status.bluetooth().then(d => this.send(d));
+        if (config.networking) status.network().then(d => this.send(d));
+      }, 5000));
+    }
 
-		if (this.scopes.has('launch')) {
-			this.#intervals.push(setInterval(() => status.apps().then(d => this.send(d)), 5000));
-		}
-		return this;
-	}
+    if (this.scopes.has('bar')) {
+      binding.stdout.on('data', d => status.layout(d).then(d => this.send(d)));
+      workspace.stdout.on('data', () => status.workspaces().then(d => this.send(d)));
+    }
 
-	static byScope(s) {
-		return [...clients].filter(c => {
-			return c.scopes.list.includes(s) && c.ready;
-		});
-	}
+    if (this.scopes.has('launch')) {
+      this.#intervals.push(setInterval(() => status.apps().then(d => this.send(d)), 5000));
+    }
+    return this;
+  }
+
+  static byScope(s) {
+    return [...clients].filter(c => {
+      return c.scopes.list.includes(s) && c.ready;
+    });
+  }
 }
 
 module.exports = Client;

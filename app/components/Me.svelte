@@ -1,11 +1,13 @@
 <script>
 	import { me } from './lib/dashState';
 
+  export let orientation = 'horizontal';
+
 	let loading = true;
 	$: loading = !$me;
 </script>
 
-<div class="me">
+<div class="me" class:vertical={orientation !== 'horizontal'}>
 	{#if loading }
 		<slot name="loading" />
 	{:else}
@@ -22,10 +24,20 @@
 		grid-template-columns: 30% auto;
 	}
 
+  .me.vertical {
+    display: block;
+    text-align: center;
+  }
+
+  .me.vertical img {
+    margin: 1rem auto;
+  }
+
 	img {
 		width: 5rem;
 		margin: 1rem;
 		height: 5rem;
+    display: block;
 		grid-row: span 2;
 		align-self: center;
 		border-radius: 8px;
@@ -34,10 +46,12 @@
 	}
 
 	strong {
+    display: block;
 		font-weight: normal;
 		align-self: flex-end;
 	}
 	small {
-		opacity: 0.3;
+		opacity: 0.6;
+    display: block;
 	}
 </style>

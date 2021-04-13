@@ -7,6 +7,7 @@
 
 	const defaults = {
 		music: {},
+		weather: {},
 		networking: {},
 		devices: { configured: [], },
 	};
@@ -128,6 +129,25 @@
 				<label>
 					<span>API Secret</span>
 					<input name="musicSecret" type="password" bind:value={settings.music.secret} required />
+				</label>
+			</section>
+			<section>
+				<h2>Weather</h2>
+				<label>
+					<span>API URL</span>
+					<input name="weatherAPI" type="text" bind:value={settings.weather.api} required />
+				</label>
+				<label>
+					<span>API Key</span>
+					<input name="weatherKey" type="password" bind:value={settings.weather.key} required />
+				</label>
+				<label>
+					<span>Timezone</span>
+					<input name="weatherTimezone" type="text" bind:value={settings.weather.timezone} required />
+				</label>
+				<label>
+					<span>Location</span>
+					<input name="weatherLocation" type="text" bind:value={settings.weather.location} required />
 				</label>
 			</section>
 			{#if showSecret}

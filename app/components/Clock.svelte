@@ -1,5 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
+  import { visible } from './lib/state';
 
 	export let highlight = 0;
 	export let type = 'dash';
@@ -26,6 +27,7 @@
 
 	onMount(set);
 	setInterval(set, 1000);
+  $: if ($visible) set();
 </script>
 
 {#if type === 'bar'}

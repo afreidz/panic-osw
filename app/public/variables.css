@@ -106,6 +106,7 @@
 	--color-highlight-17: var(--color-25);
 	--color-highlight-18: var(--color-26);
 	--color-highlight-19: var(--color-8);
+	--color-highlight-20: var(--color-4);
 	--rgb-highlight-1: var(--rgb-9);
 	--rgb-highlight-2: var(--rgb-10);
 	--rgb-highlight-3: var(--rgb-11);
@@ -125,4 +126,5 @@
 	--rgb-highlight-17: var(--rgb-25);
 	--rgb-highlight-18: var(--rgb-26);
 	--rgb-highlight-19: var(--rgb-8);
+	--rgb-highlight-20: var(--rgb-4);
 }

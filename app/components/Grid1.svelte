@@ -11,6 +11,7 @@
 	import Screen from './Screen.svelte';
 	import Volume from './Volume.svelte';
 	import Battery from './Battery.svelte';
+  import Weather from './Weather.svelte';
 	import Calendar from './Calendar.svelte';
 	import Ethernet from './Ethernet.svelte';
 	import Bluetooth from './Bluetooth.svelte';
@@ -34,10 +35,17 @@
 		rowstart=3
 		rowend=5
 		colstart=1
-		colend=5>
-		<Me>
+		colend=3>
+		<Me orientation="vertical">
 			<i slot="loading"><IconLoader/></i>
 		</Me>
+	</Widget>
+
+  <Widget
+		rowstart=3
+		rowend=5
+		colstart=3
+		colend=5><Weather/>
 	</Widget>
 
 	<Widget

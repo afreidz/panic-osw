@@ -13,6 +13,7 @@
 	$: events = new Map;
 
 	onMount(setCalendar);
+  $: if ($visible) setCalendar();
 	$: if (!$visible) clearInterval(timer);
 	$: if ($visible) timer = setInterval(setCalendar, 10000);
 
